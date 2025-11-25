@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppili Consulting | Specialist Mechanical HVAC Systems Design & Compliance</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Define Accent Color (#FF4136) */
+        :root {
+            --color-saffron: #FF4136; /* Vibrant Orange-Red */
+        }
+
+        /* Custom styles for professional aesthetic */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        .section-header {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 800; /* Bolder header font */
+        }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 75px; /* Slightly longer underline */
+            height: 4px; /* Thicker underline */
+            background-color: var(--color-saffron); /* Accent color */
+            border-radius: 9999px;
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 250px; /* Ensure visual consistency in card height */
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+        }
+        .hero-bg {
+            /* Dark Grey Overlay */
+            background: linear-gradient(135deg, rgba(70, 70, 70, 0.9), rgba(50, 50, 50, 0.9)), url('http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072') center/cover no-repeat;
+        }
+        /* Icon styles - using Unicode for simplicity (can be replaced with SVGs if needed) */
+        .icon {
+            font-size: 2.5rem;
+        }
+        /* Custom Tailwind overrides using the accent color */
+        .text-saffron { color: var(--color-saffron); }
+        .bg-saffron { background-color: var(--color-saffron); }
+        .hover-text-saffron:hover { color: var(--color-saffron); }
+        .hover-bg-saffron:hover { background-color: var(--color-saffron); }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar/Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-extrabold text-saffron tracking-wider">
+                <span class="text-gray-700">OPPILI</span><span class="text-saffron">CONSULTING</span>
+            </a>
+            <div class="space-x-6 hidden md:flex font-semibold">
+                <!-- Navigation updated to reflect focus on Mechanical Services -->
+                <a href="#services" class="text-gray-600 hover-text-saffron transition duration-150">Mechanical Services</a>
+                <a href="#projects" class="text-gray-600 hover-text-saffron transition duration-150">Projects</a>
+                <a href="#about" class="text-gray-600 hover-text-saffron transition duration-150">Expertise & Compliance</a>
+                <a href="news.html" class="text-gray-600 hover-text-saffron transition duration-150">News & Insights</a>
+                <a href="#contact" class="bg-saffron text-white px-5 py-2 rounded-xl shadow-md hover:bg-saffron transition duration-150 transform hover:scale-105">Contact</a>
+            </div>
+            <!-- Mobile Menu Placeholder -->
+            <button class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section (Dark Grey background, Accent buttons) -->
+    <section class="hero-bg text-white py-28 md:py-40">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight max-w-5xl mx-auto">
+                Specialist Mechanical HVAC Systems Design and Australian NCC/BCA Compliance
+            </h1>
+            <p class="text-xl md:text-2xl font-light mb-10 max-w-4xl mx-auto">
+                Dedicated design, documentation, and Section J certification services for HVAC systems across NSW, QLD, VIC, and TAS.
+            </p>
+            <a href="#contact" class="inline-block bg-saffron text-white font-bold px-10 py-4 rounded-xl shadow-2xl text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 hover:text-gray-800">
+                Start Your Compliant HVAC Design Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Detailed Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Specialist Mechanical & Energy Services</h2>
+            
+            <!-- Reduced the grid to 2 columns to highlight the core focus areas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Service 1: Comprehensive HVAC System Design -->
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                    <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
+                    <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
+                    <ul class="text-gray-600 space-y-2 text-base">
+                        <li>End-to-end design, drafting, and specification of Heating, Ventilation, and Air Conditioning (HVAC) systems.</li>
+                        <li>High-efficiency plant selection, system optimization, and detailed load calculations (psychrometric analysis).</li>
+                        <li>Specialist ventilation systems for car parks, commercial kitchens, and industrial process requirements.</li>
+                        <li>Consultation and design for system upgrades and remediation in existing buildings.</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: NCC/BCA Compliance & Section J -->
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                    <div class="icon text-saffron mb-4" role="img" aria-label="Compliance Icon">&#128218;</div>
+                    <h3 class="text-xl font-bold mb-3">NCC/BCA Compliance, Section J & Certification</h3>
+                    <ul class="text-gray-600 space-y-2 text-base">
+                        <li>**Section J (J1V3) Energy Assessments and Thermal Modelling.**</li>
+                        <li>Certification against the National Construction Code (NCC) and Building Code of Australia (BCA) for mechanical services.</li>
+                        <li>Regulatory liaison and authority submissions, ensuring all mechanical elements meet essential services requirements.</li>
+                        <li>Performance solutions for alternative and non-deemed-to-satisfy compliance pathways.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Select Project Experience (Mechanical Focus)</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Healthcare/Aged Care (HVAC Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Aged Care HVAC & Essential Ventilation</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Design and certification of specialized HVAC systems for Class 9c facilities, focusing on air quality, infection control, and essential ventilation compliance.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">HVAC</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Infection Control</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Commercial & High-Rise (HVAC Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-rise commercial tower." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Commercial Section J & Energy Efficiency</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Energy modeling and high-efficiency HVAC design achieving superior Section J (J1V3) compliance for large commercial and high-rise developments under NCC 2022 standards.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Commercial</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Section J</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Infrastructure/Data Centres (Mechanical Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Data centre cooling plant." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Data Centre Cooling & Critical Infrastructure</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Specialist experience in critical cooling design, system redundancy, and infrastructure upgrades for mission-critical data centres and complex industrial plants.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Industrial Cooling</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Mechanical Design</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="text-saffron font-bold hover-text-saffron transition duration-150 border-2 border-saffron px-8 py-3 rounded-xl inline-block shadow-md hover:shadow-lg">
+                    View Our Full Capability Statement
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Expertise & Credentials) -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Global Experience Meets Australian Compliance</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                
+                <!-- Column 1: Principal Engineer Profile -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-xl border border-gray-200">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-resolution photo of the Principal Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
+                        
+                        <p class="text-xl font-bold text-gray-900 mb-1 text-center">
+                            Venkat Narasimhan, MIEAust, NER, RPEQ
+                        </p>
+                        <p class="text-md text-saffron font-medium mb-4 text-center">
+                            Principal Mechanical & Compliance Specialist
+                        </p>
+                        <p class="text-gray-600 italic text-center">
+                            "Decades of hands-on engineering across three continents bridge the gap between technical design and regulatory certainty for all your HVAC needs."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Key Expertise -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Why Choose Oppili Consulting for Mechanical HVAC?</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Comprehensive Australian Mechanical Registration:</strong> Registered Professional Engineer in QLD (RPEQ 28511), VIC (PE0007074), TAS, and NSW (PRE0000083). Ensuring professional indemnity and quality for mechanical design across multiple jurisdictions.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">NSW Design Practitioner & Mechanical Certifier:</strong> NSW Registered Design Practitioner (DEP0000084) and Certifier - Mechanical Engineer (BDC04991). We can design *and* certify the compliance of our mechanical systems, simplifying your approval process.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Deep Sector Experience:</strong> Specialist knowledge in high-rise residential, healthcare (hospitals/aged care), commercial towers, and complex industrial/data centre infrastructure, all with a mechanical focus.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Compliance Focused:</strong> Every HVAC design is intrinsically linked to the National Construction Code (NCC), BCA, and relevant Australian Standards (AS), minimizing variations and risk during construction.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- New Row for International Projects -->
+                <div class="lg:col-span-3 mt-8 pt-8 border-t border-gray-300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">International Mechanical Experience</h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our mechanical expertise is built on nearly 20 years of delivering large-scale, complex projects across the Middle East and Asia, bringing a global perspective to our local compliance work. Key international experience includes:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Healthcare Infrastructure:</strong> Hamad Bin Khalifa Medical City, Qatar ($320M Multispecialty Hospital) and Al Ain Hospital reconstruction, Abu Dhabi, UAE.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Commercial Towers:</strong> Al Abdul Karim Holding tower (42 storeys, $350m Commercial and Office building).</div>
+                            </li>
+                        </ul>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Hospitality & Residential:</strong> Al Khorayef - Fraser Suites 4-star hotel, Saudi Arabia ($365M).</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Industrial HVAC & Air Control:</strong> Design for Hyundai paint shops, Saint Gobain Industries, Kohler Co plants (India), and air pollution control systems for cement, steel, and refinery projects worldwide.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End New Row for International Projects -->
+
+                <div class="lg:col-span-3 mt-8 pt-4 border-t border-gray-300">
+                    <a href="Oppili Engineering - Capability_Statement - CS001-v01.pdf" download
+                           class="inline-flex items-center bg-saffron text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-saffron transition duration-300 opacity-90 hover:opacity-100">
+                        <!-- Download Icon (Inline SVG) -->
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download Full Capability Statement
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Dark Grey background, Accent buttons) -->
+    <section id="contact" class="py-16 md:py-24 bg-gray-600 text-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="section-header text-4xl font-extrabold mb-8 text-white after:bg-saffron">
+                Discuss Your Next HVAC Project
+            </h2>
+            <p class="text-lg mb-8">
+                Contact our principal engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
+            </p>
+            
+            <!-- Simple Contact Form Placeholder -->
+            <form action="#" method="POST" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="Project Lead / Architect">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-1">Work Email</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="project@firmname.com.au">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium mb-1">Project Details</label>
+                    <textarea id="message" name="message" rows="4" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="Briefly describe the project location, building classification, required mechanical/HVAC services, and key compliance challenges..."></textarea>
+                </div>
+                <div class="text-center md:text-left">
+                    <button type="submit"
+                        class="w-full md:w-auto bg-white text-saffron font-bold px-10 py-4 rounded-xl shadow-xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        Submit Enquiry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer (Darker Grey) -->
+    <footer class="bg-gray-700 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4 space-x-6 text-sm">
+                <a href="#services" class="hover-text-saffron">Mechanical Services</a>
+                <a href="#projects" class="hover-text-saffron">Projects</a>
+                <a href="#about" class="hover-text-saffron">Expertise</a>
+                <a href="#contact" class="hover-text-saffron">Contact</a>
+            </div>
+            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
+            <p class="text-xs text-gray-400">
+                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
