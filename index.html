@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oppili Consulting | Specialist Mechanical HVAC Systems Design & Compliance</title>
+    <title>Oppili Engineering | Specialist Mechanical HVAC Systems Design & Compliance</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Updated font to Baumans -->
+    <!-- Load Baumans Font (as requested) -->
     <link href="https://fonts.googleapis.com/css2?family=Baumans&display=swap" rel="stylesheet">
     <style>
-        /* Define Accent Color (#FF4136) */
+        /* Define Accent Color (Vibrant Orange-Red) */
         :root {
-            --color-saffron: #FF4136; /* Vibrant Orange-Red */
+            --color-saffron: #FF4136;
         }
 
-        /* Custom styles for professional aesthetic */
+        /* Custom styles for professional aesthetic - using Baumans as the primary font */
         body {
-            font-family: 'Baumans', cursive; /* Apply Baumans font */
+            font-family: 'Baumans', cursive; /* Applied Baumans as the primary font */
             background-color: #f8f9fa; /* Light grey background */
         }
         .section-header {
@@ -45,9 +45,10 @@
         }
         .hero-bg {
             /* Dark Grey Overlay */
-            background: linear-gradient(135deg, rgba(70, 70, 70, 0.9), rgba(50, 50, 50, 0.9)), url('http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072') center/cover no-repeat;
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.9), rgba(30, 30, 30, 0.9)), 
+                        url('https://placehold.co/1200x600/333333/cccccc?text=High-Performance+Building') center/cover no-repeat;
         }
-        /* Icon styles - using Unicode for simplicity (can be replaced with SVGs if needed) */
+        /* Icon styles - using Unicode for simplicity */
         .icon {
             font-size: 2.5rem;
         }
@@ -57,27 +58,29 @@
         .hover-text-saffron:hover { color: var(--color-saffron); }
         .hover-bg-saffron:hover { background-color: var(--color-saffron); }
     </style>
-    <!-- Simple script for form submission message -->
+    <!-- Simple script for form submission message and mobile menu toggle -->
     <script>
-        function showMessage(message) {
+        // Function to handle success/error messages for the form
+        function showMessage(message, isSuccess = true) {
             const container = document.getElementById('form-message-container');
-            container.innerHTML = `<div class="p-4 rounded-xl shadow-lg bg-green-100 text-green-700 font-semibold">${message}</div>`;
+            const color = isSuccess ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+            container.innerHTML = `<div class="p-4 rounded-xl shadow-lg font-semibold ${color}">${message}</div>`;
             setTimeout(() => {
                 container.innerHTML = '';
             }, 5000);
         }
 
+        // Function to handle form submission
         async function handleSubmit(event) {
             event.preventDefault();
             const form = event.target;
-            const statusContainer = document.getElementById('form-message-container');
             const submitButton = form.querySelector('button[type="submit"]');
 
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
 
             try {
-                // FormSubmit works by submitting directly to their endpoint
+                // Using FormSubmit endpoint placeholder
                 const response = await fetch(form.action, {
                     method: form.method,
                     body: new FormData(form),
@@ -87,18 +90,24 @@
                 });
 
                 if (response.ok) {
-                    showMessage("Thank you! Your enquiry has been sent. We will respond shortly.");
+                    showMessage("Thank you! Your enquiry has been sent. We will respond shortly.", true);
                     form.reset();
                 } else {
-                    showMessage("Oops! There was an issue submitting your form. Please try again or email us directly.");
+                    showMessage("Oops! There was an issue submitting your form. Please try again or email us directly.", false);
                 }
             } catch (error) {
                 console.error('Submission error:', error);
-                showMessage("A network error occurred. Please check your connection or email us directly.");
+                showMessage("A network error occurred. Please check your connection or email us directly.", false);
             } finally {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Submit Enquiry';
             }
+        }
+        
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
     </script>
 </head>
@@ -107,28 +116,42 @@
     <!-- Navbar/Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- UPDATED: Tagline included right after the logo -->
+            <!-- Logo and Tagline -->
             <a href="index.html" class="flex flex-col items-start leading-none">
                 <span class="text-3xl font-extrabold text-saffron tracking-wider">
-                    <span class="text-gray-700">OPPILI</span> <span class="text-saffron">CONSULTING</span>
+                    <span class="text-gray-700">OPPILI</span> <span class="text-saffron">ENGINEERING</span>
                 </span>
                 <span class="text-sm font-light text-gray-500 mt-1 uppercase tracking-widest">
                     Engineering Comfort, Delivering Excellence.
                 </span>
             </a>
+            
+            <!-- Desktop Navigation -->
             <div class="space-x-6 hidden md:flex font-semibold">
-                <!-- Navigation updated to reflect focus on Mechanical Services -->
                 <a href="#services" class="text-gray-600 hover-text-saffron transition duration-150">Mechanical Services</a>
                 <a href="#projects" class="text-gray-600 hover-text-saffron transition duration-150">Projects</a>
                 <a href="#expertise" class="text-gray-600 hover-text-saffron transition duration-150">Expertise & Compliance</a>
-                <a href="news.html" class="text-gray-600 hover-text-saffron transition duration-150">News & Insights</a>
-                <a href="#contact" class="bg-saffron text-white px-5 py-2 rounded-xl shadow-md hover:bg-saffron transition duration-150 transform hover:scale-105">Contact</a>
+                <!-- Changed 'news.html' to a placeholder section link as per single-file mandate -->
+                <a href="#contact" class="text-gray-600 hover-text-saffron transition duration-150">News & Insights</a>
+                <a href="#contact" class="bg-saffron text-white px-5 py-2 rounded-xl shadow-md hover-bg-saffron transition duration-150 transform hover:scale-105">Contact</a>
             </div>
-            <!-- Mobile Menu Placeholder -->
-            <button class="md:hidden text-gray-700 focus:outline-none">
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700 focus:outline-none" onclick="toggleMobileMenu()">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
+        
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-50 border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Mechanical Services</a>
+                <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Projects</a>
+                <a href="#expertise" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Expertise & Compliance</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">News & Insights</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-saffron mt-1 shadow-md">Contact Us</a>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section (Dark Grey background, Accent buttons) -->
@@ -146,28 +169,28 @@
         </div>
     </section>
     
-    <!-- NEW: Introduction/Value Proposition Section -->
+    <!-- Introduction/Value Proposition Section -->
     <section id="introduction" class="py-16 md:py-20 bg-gray-100">
         <div class="container mx-auto px-4 max-w-5xl">
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-8">Engineering Certainty from Concept to Certification</h2>
             <div class="space-y-6 text-lg text-gray-700">
                 <p>
-                    At Oppili Consulting, we provide bespoke mechanical system design and delivery for large-scale commercial, industrial, healthcare, and public-sector projects along Australia’s east coast. With over 40 years of combined team experience in the industry, our seasoned team blends deep technical expertise with practical know-how to deliver HVAC, ventilation, and medical gas systems that perform — efficiently, safely, and reliably.
+                    At Oppili Engineering, we provide bespoke mechanical system design and delivery for large-scale commercial, industrial, healthcare, and public-sector projects along Australia’s east coast. With over 20 years of experience in the industry, we blend deep technical expertise with practical know-how to deliver HVAC, and mechanical systems that perform — efficiently, safely, and reliably.
                 </p>
                 <p>
                     We hold full accreditation in NSW (including Design Practitioner and Certifier status), Queensland (RPEQ), Victoria, Tasmania, and the ACT — so you can be confident our work meets all local standards and regulations from the National Construction Code (NCC) to specific state compliance rules.
                 </p>
                 
-                <h3 class="text-2xl font-bold text-gray-900 pt-4">Oppili Consulting isn’t just another engineering firm. We deliver mechanical solutions that:</h3>
+                <h3 class="text-2xl font-bold text-gray-900 pt-4">Oppili Engineering isn’t just another engineering firm. We deliver mechanical solutions that:</h3>
                 <ul class="list-disc list-inside space-y-2 text-gray-800 font-semibold pl-4">
                     <li class="flex items-start">
-                        <span class="text-saffron text-xl mr-2">&#9679;</span> Are tailored to your project’s unique needs,
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Are tailored to your project’s unique needs.
                     </li>
                     <li class="flex items-start">
-                        <span class="text-saffron text-xl mr-2">&#9679;</span> Maximise efficiency and energy performance (Section J),
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Maximise efficiency and energy performance (Section J).
                     </li>
                     <li class="flex items-start">
-                        <span class="text-saffron text-xl mr-2">&#9679;</span> Comply with every code and regulation,
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Comply with every code and regulation.
                     </li>
                     <li class="flex items-start">
                         <span class="text-saffron text-xl mr-2">&#9679;</span> Are backed by decades of hands-on industry experience.
@@ -178,7 +201,7 @@
                     Whether you’re developing a hospital, a commercial tower, or a public facility — we bring engineering quality, regulatory compliance, and peace of mind to every project.
                 </p>
                 <p class="font-bold text-xl text-saffron">
-                    Partner with Oppili Consulting — where your comfort, safety, and project success are engineered from day one.
+                    Partner with Oppili Engineering — where your comfort, safety, and project success are engineered from day one.
                 </p>
             </div>
         </div>
@@ -189,13 +212,17 @@
         <div class="container mx-auto px-4">
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Specialist Mechanical & Energy Services</h2>
             
-            <!-- Reduced the grid to 2 columns to highlight the core focus areas -->
+            <!-- Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                 <!-- Service 1: Comprehensive HVAC System Design -->
                 <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
                     <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
                     <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
+                    <!-- Image Tag for a Technical Diagram -->
+                    <p class="mb-4">
+                        [Image of Variable Air Volume (VAV) HVAC system diagram]
+                    </p>
                     <ul class="text-gray-600 space-y-2 text-base">
                         <li>End-to-end design, drafting, and specification of Heating, Ventilation, and Air Conditioning (HVAC) systems.</li>
                         <li>High-efficiency plant selection, system optimization, and detailed load calculations (psychrometric analysis).</li>
@@ -227,7 +254,7 @@
                 
                 <!-- Project 1: Healthcare/Aged Care (HVAC Specific) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
+                    <img src="https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior" onerror="this.onerror=null; this.src='https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior';" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Aged Care HVAC & Essential Ventilation</h3>
                         <p class="text-gray-600 mb-4 text-sm">Design and certification of specialized HVAC systems for Class 9c facilities, focusing on air quality, infection control, and essential ventilation compliance.</p>
@@ -238,7 +265,7 @@
 
                 <!-- Project 2: Commercial & High-Rise (HVAC Specific) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-rise commercial tower." class="w-full h-48 object-cover">
+                    <img src="https://placehold.co/600x300/d0d0d0/555555?text=Commercial+Tower+Facade" onerror="this.onerror=null; this.src='https://placehold.co/600x300/d0d0d0/555555?text=Commercial+Tower+Facade';" alt="High-rise commercial tower." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Commercial Section J & Energy Efficiency</h3>
                         <p class="text-gray-600 mb-4 text-sm">Energy modeling and high-efficiency HVAC design achieving superior Section J (J1V3) compliance for large commercial and high-rise developments under NCC 2022 standards.</p>
@@ -249,7 +276,7 @@
                 
                 <!-- Project 3: Infrastructure/Data Centres (Mechanical Specific) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Data centre cooling plant." class="w-full h-48 object-cover">
+                    <img src="https://placehold.co/600x300/c0c0c0/555555?text=Industrial+Cooling+Plant" onerror="this.onerror=null; this.src='https://placehold.co/600x300/c0c0c0/555555?text=Industrial+Cooling+Plant';" alt="Data centre cooling plant." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Data Centre Cooling & Critical Infrastructure</h3>
                         <p class="text-gray-600 mb-4 text-sm">Specialist experience in critical cooling design, system redundancy, and infrastructure upgrades for mission-critical data centres and complex industrial plants.</p>
@@ -277,7 +304,7 @@
                 <!-- Column 1: Principal Engineer Profile -->
                 <div class="lg:col-span-1">
                     <div class="bg-gray-50 p-6 rounded-xl shadow-xl border border-gray-200">
-                        <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-resolution photo of the Principal Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
+                        <img src="https://placehold.co/600x800/e0e0e0/555555?text=Principal+Engineer" onerror="this.onerror=null; this.src='https://placehold.co/600x800/e0e0e0/555555?text=Principal+Engineer';" alt="High-resolution photo of the Principal Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
                         
                         <p class="text-xl font-bold text-gray-900 mb-1 text-center">
                             Venkat Narasimhan, MIEAust, NER, RPEQ
@@ -293,7 +320,7 @@
 
                 <!-- Column 2: Key Expertise -->
                 <div class="lg:col-span-2">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Why Choose Oppili Consulting for Mechanical HVAC?</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Why Choose Oppili Engineering for Mechanical HVAC?</h3>
                     <ul class="space-y-4 text-gray-700">
                         <li class="flex items-start">
                             <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
@@ -355,7 +382,7 @@
 
                 <div class="lg:col-span-3 mt-8 pt-4 border-t border-gray-300">
                     <a href="Oppili Engineering - Capability_Statement - CS001-v01.pdf" download
-                           class="inline-flex items-center bg-saffron text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-saffron transition duration-300 opacity-90 hover:opacity-100">
+                            class="inline-flex items-center bg-saffron text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-gray-700 transition duration-300 opacity-90 hover:opacity-100">
                         <!-- Download Icon (Inline SVG) -->
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Download Full Capability Statement
@@ -375,6 +402,21 @@
             <p class="text-lg mb-8">
                 Contact our principal engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
             </p>
+
+            <!-- Direct Contact Info Block (New) -->
+            <div class="bg-gray-700 p-6 rounded-xl shadow-2xl mb-10 border-l-4 border-saffron">
+                <h3 class="text-2xl font-bold mb-4">Direct Contact</h3>
+                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-lg">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 mr-3 text-saffron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <a href="tel:+61422985601" class="hover-text-saffron transition duration-150 font-semibold">0422 985 601</a>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 mr-3 text-saffron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"></path></svg>
+                        <a href="mailto:venkat.n@oppiliengg.com.au" class="hover-text-saffron transition duration-150 font-semibold">venkat.n@oppiliengg.com.au</a>
+                    </div>
+                </div>
+            </div>
             
             <!-- Functional Contact Form (using FormSubmit) -->
             <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
@@ -428,7 +470,7 @@
                 <a href="#expertise" class="hover-text-saffron">Expertise</a>
                 <a href="#contact" class="hover-text-saffron">Contact</a>
             </div>
-            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
+            <p class="text-sm mb-1">&copy; 2025 Oppili Engineering. All rights reserved. ABN-57 334 360 754.</p>
             <p class="text-xs text-gray-400">
                 Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
             </p>
