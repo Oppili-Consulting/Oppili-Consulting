@@ -3,386 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oppili Engineering | Consulting & Mechanical Services</title>
+    <title>Oppili Consulting | Specialist Mechanical HVAC Systems Design & Compliance</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Updated font to Baumans -->
+    <link href="https://fonts.googleapis.com/css2?family=Baumans&display=swap" rel="stylesheet">
     <style>
+        /* Define Accent Color (#FF4136) */
         :root {
-            --primary-color: #004d99; /* Deep Blue for Oppili */
-            --secondary-color: #f7a61d; /* Gold/Orange Accent */
+            --color-saffron: #FF4136; /* Vibrant Orange-Red */
         }
+
+        /* Custom styles for professional aesthetic */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Baumans', cursive; /* Apply Baumans font */
+            background-color: #f8f9fa; /* Light grey background */
         }
-        /* Custom styles for the active tab */
-        .tab.active {
-            background-color: var(--secondary-color);
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        .section-header {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 800; /* Bolder header font */
         }
-        .citation-link {
-            font-size: 0.75rem;
-            color: var(--primary-color);
-            margin-top: 0.5rem;
-            display: block;
-            opacity: 0.8;
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 75px; /* Slightly longer underline */
+            height: 4px; /* Thicker underline */
+            background-color: var(--color-saffron); /* Accent color */
+            border-radius: 9999px;
         }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 250px; /* Ensure visual consistency in card height */
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+        }
+        .hero-bg {
+            /* Dark Grey Overlay */
+            background: linear-gradient(135deg, rgba(70, 70, 70, 0.9), rgba(50, 50, 50, 0.9)), url('http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072') center/cover no-repeat;
+        }
+        /* Icon styles - using Unicode for simplicity (can be replaced with SVGs if needed) */
+        .icon {
+            font-size: 2.5rem;
+        }
+        /* Custom Tailwind overrides using the accent color */
+        .text-saffron { color: var(--color-saffron); }
+        .bg-saffron { background-color: var(--color-saffron); }
+        .hover-text-saffron:hover { color: var(--color-saffron); }
+        .hover-bg-saffron:hover { background-color: var(--color-saffron); }
     </style>
+    <!-- Simple script for form submission message -->
+    <script>
+        function showMessage(message) {
+            const container = document.getElementById('form-message-container');
+            container.innerHTML = `<div class="p-4 rounded-xl shadow-lg bg-green-100 text-green-700 font-semibold">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const statusContainer = document.getElementById('form-message-container');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            try {
+                // FormSubmit works by submitting directly to their endpoint
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    showMessage("Thank you! Your enquiry has been sent. We will respond shortly.");
+                    form.reset();
+                } else {
+                    showMessage("Oops! There was an issue submitting your form. Please try again or email us directly.");
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                showMessage("A network error occurred. Please check your connection or email us directly.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Enquiry';
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="text-gray-800">
 
-    <!-- Header and Navigation -->
-    <header class="shadow-lg bg-white sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4 md:justify-start md:space-x-10">
-                <div class="flex justify-start lg:w-0 lg:flex-1">
-                    <a href="#" class="flex items-center text-xl font-extrabold text-[var(--primary-color)]">
-                        <img class="h-8 w-auto sm:h-10 mr-2" src="https://placehold.co/40x40/004d99/ffffff?text=OE" alt="Oppili Engineering Logo">
-                        Oppili Engineering
-                    </a>
-                </div>
+    <!-- Navbar/Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- UPDATED: Tagline included right after the logo -->
+            <a href="index.html" class="flex flex-col items-start leading-none">
+                <span class="text-3xl font-extrabold text-saffron tracking-wider">
+                    <span class="text-gray-700">OPPILI</span> <span class="text-saffron">CONSULTING</span>
+                </span>
+                <span class="text-sm font-light text-gray-500 mt-1 uppercase tracking-widest">
+                    Engineering Comfort, Delivering Excellence.
+                </span>
+            </a>
+            <div class="space-x-6 hidden md:flex font-semibold">
+                <!-- Navigation updated to reflect focus on Mechanical Services -->
+                <a href="#services" class="text-gray-600 hover-text-saffron transition duration-150">Mechanical Services</a>
+                <a href="#projects" class="text-gray-600 hover-text-saffron transition duration-150">Projects</a>
+                <a href="#expertise" class="text-gray-600 hover-text-saffron transition duration-150">Expertise & Compliance</a>
+                <a href="news.html" class="text-gray-600 hover-text-saffron transition duration-150">News & Insights</a>
+                <a href="#contact" class="bg-saffron text-white px-5 py-2 rounded-xl shadow-md hover:bg-saffron transition duration-150 transform hover:scale-105">Contact</a>
+            </div>
+            <!-- Mobile Menu Placeholder -->
+            <button class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section (Dark Grey background, Accent buttons) -->
+    <section class="hero-bg text-white py-28 md:py-40">
+        <div class="container mx-auto px-4 text-center">
+            <!-- Slogan is the main heading text -->
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight max-w-5xl mx-auto">
+                We design HVAC systems that make every building perform — efficiently, reliably, and for decades.
+            </h1>
+            
+            <!-- Call to Action -->
+            <a href="#contact" class="inline-block bg-saffron text-white font-bold px-10 py-4 rounded-xl shadow-2xl text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 hover:text-gray-800">
+                Start Your Compliant HVAC Design Now
+            </a>
+        </div>
+    </section>
+    
+    <!-- NEW: Introduction/Value Proposition Section -->
+    <section id="introduction" class="py-16 md:py-20 bg-gray-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-8">Engineering Certainty from Concept to Certification</h2>
+            <div class="space-y-6 text-lg text-gray-700">
+                <p>
+                    At Oppili Consulting, we provide bespoke mechanical system design and delivery for large-scale commercial, industrial, healthcare, and public-sector projects along Australia’s east coast. With over 40 years of combined team experience in the industry, our seasoned team blends deep technical expertise with practical know-how to deliver HVAC, ventilation, and medical gas systems that perform — efficiently, safely, and reliably.
+                </p>
+                <p>
+                    We hold full accreditation in NSW (including Design Practitioner and Certifier status), Queensland (RPEQ), Victoria, Tasmania, and the ACT — so you can be confident our work meets all local standards and regulations from the National Construction Code (NCC) to specific state compliance rules.
+                </p>
                 
-                <!-- Navigation Tabs/Links -->
-                <nav class="flex space-x-4">
-                    <button id="tab-home" data-target="content-home" class="tab active text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 ease-in-out" onclick="showTab('content-home')">Home</button>
-                    
-                    <!-- NEW TAB 1: News & Insights -->
-                    <button id="tab-news" data-target="content-news" class="tab text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 ease-in-out" onclick="showTab('content-news')">News & Insights</button>
-                    
-                    <!-- NEW TAB 2: Contact -->
-                    <button id="tab-contact" data-target="content-contact" class="tab text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 ease-in-out" onclick="showTab('content-contact')">Contact</button>
-                </nav>
+                <h3 class="text-2xl font-bold text-gray-900 pt-4">Oppili Consulting isn’t just another engineering firm. We deliver mechanical solutions that:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-800 font-semibold pl-4">
+                    <li class="flex items-start">
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Are tailored to your project’s unique needs,
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Maximise efficiency and energy performance (Section J),
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Comply with every code and regulation,
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-saffron text-xl mr-2">&#9679;</span> Are backed by decades of hands-on industry experience.
+                    </li>
+                </ul>
+                
+                <p class="pt-4">
+                    Whether you’re developing a hospital, a commercial tower, or a public facility — we bring engineering quality, regulatory compliance, and peace of mind to every project.
+                </p>
+                <p class="font-bold text-xl text-saffron">
+                    Partner with Oppili Consulting — where your comfort, safety, and project success are engineered from day one.
+                </p>
+            </div>
+        </div>
+    </section>
 
-                <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                    <!-- Placeholder for future action button -->
+    <!-- Detailed Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Specialist Mechanical & Energy Services</h2>
+            
+            <!-- Reduced the grid to 2 columns to highlight the core focus areas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Service 1: Comprehensive HVAC System Design -->
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                    <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
+                    <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
+                    <ul class="text-gray-600 space-y-2 text-base">
+                        <li>End-to-end design, drafting, and specification of Heating, Ventilation, and Air Conditioning (HVAC) systems.</li>
+                        <li>High-efficiency plant selection, system optimization, and detailed load calculations (psychrometric analysis).</li>
+                        <li>Specialist ventilation systems for car parks, commercial kitchens, and industrial process requirements.</li>
+                        <li>Consultation and design for system upgrades and remediation in existing buildings.</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: NCC/BCA Compliance & Section J -->
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                    <div class="icon text-saffron mb-4" role="img" aria-label="Compliance Icon">&#128218;</div>
+                    <h3 class="text-xl font-bold mb-3">NCC/BCA Compliance, Section J & Certification</h3>
+                    <ul class="text-gray-600 space-y-2 text-base">
+                        <li>**Section J (J1V3) Energy Assessments and Thermal Modelling.**</li>
+                        <li>Certification against the National Construction Code (NCC) and Building Code of Australia (BCA) for mechanical services.</li>
+                        <li>Regulatory liaison and authority submissions, ensuring all mechanical elements meet essential services requirements.</li>
+                        <li>Performance solutions for alternative and non-deemed-to-satisfy compliance pathways.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Select Project Experience (Mechanical Focus)</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Healthcare/Aged Care (HVAC Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Aged Care HVAC & Essential Ventilation</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Design and certification of specialized HVAC systems for Class 9c facilities, focusing on air quality, infection control, and essential ventilation compliance.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">HVAC</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Infection Control</span>
+                    </div>
+                </div>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto mt-8 px-4 sm:px-6 lg:px-8">
-        
-        <!-- 1. Home Content (Existing/Default Page) -->
-        <section id="content-home" class="content-section">
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h1 class="text-3xl font-bold mb-4 text-[var(--primary-color)]">Welcome to Oppili Engineering</h1>
-                <p class="text-lg text-gray-600 mb-6">
-                    Specialist mechanical and building services consultancy based in Newcastle, NSW. We combine technical excellence with practical industry insight to deliver innovative and sustainable solutions for complex building and infrastructure projects.
-                </p>
-                <a href="#" onclick="showTab('content-contact')" class="inline-block bg-[var(--secondary-color)] text-white font-semibold py-3 px-6 rounded-lg hover:bg-opacity-90 transition duration-150 ease-in-out shadow-md">
-                    Get in Touch Today
+                <!-- Project 2: Commercial & High-Rise (HVAC Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-rise commercial tower." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Commercial Section J & Energy Efficiency</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Energy modeling and high-efficiency HVAC design achieving superior Section J (J1V3) compliance for large commercial and high-rise developments under NCC 2022 standards.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Commercial</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Section J</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Infrastructure/Data Centres (Mechanical Specific) -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="Data centre cooling plant." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Data Centre Cooling & Critical Infrastructure</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Specialist experience in critical cooling design, system redundancy, and infrastructure upgrades for mission-critical data centres and complex industrial plants.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Industrial Cooling</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Mechanical Design</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="text-saffron font-bold hover-text-saffron transition duration-150 border-2 border-saffron px-8 py-3 rounded-xl inline-block shadow-md hover:shadow-lg">
+                    View Our Full Capability Statement
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 2. News & Insights Content (Initial state: Hidden) -->
-        <section id="content-news" class="content-section hidden">
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h2 class="text-3xl font-bold mb-6 text-[var(--primary-color)] border-b pb-2">Latest News & Engineering Insights</h2>
+    <!-- Expertise Section (renamed from About) -->
+    <section id="expertise" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Global Experience Meets Australian Compliance</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
                 
-                <!-- Automated News Section -->
-                <h3 class="text-2xl font-semibold mt-8 mb-4">Automated Industry Updates (via AI Search)</h3>
-                <div id="automated-news-container" class="space-y-6">
-                    <!-- Loading Indicator -->
-                    <div id="news-loading" class="flex items-center justify-center p-8 text-gray-500">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-[var(--primary-color)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Fetching the latest Australian HVAC standards and NCC updates...
-                    </div>
-                </div>
-
-                <!-- Manual/In-House News Section -->
-                <h3 class="text-2xl font-semibold mt-10 mb-4 border-t pt-4">Oppili Engineering Announcements</h3>
-                
-                <!-- Placeholder News Item 1 -->
-                <article class="mb-8 border-b pb-6">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Sustainable HVAC Solutions for Modern Datacentres</h4>
-                    <p class="text-sm text-gray-500 mb-3">Published: October 15, 2024</p>
-                    <p class="text-gray-600">
-                        Our latest analysis explores how next-generation geothermal and passive cooling techniques are revolutionizing the energy consumption profile of high-density computing environments in the Australian climate. Read more about our project with the Sydney Tech Hub.
-                    </p>
-                    <a href="#" class="text-[var(--primary-color)] font-medium mt-2 inline-block hover:underline">Continue reading &rarr;</a>
-                </article>
-
-                <!-- Placeholder News Item 2 -->
-                <article class="mb-4">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Oppili Engineering Expands RPEQ Services to Queensland</h4>
-                    <p class="text-sm text-gray-500 mb-3">Published: September 28, 2024</p>
-                    <p class="text-gray-600">
-                        We are proud to announce the expansion of our services, now officially registered to provide professional engineering services across Queensland, led by Venkat Narasimhan (RPEQ 28511).
-                    </p>
-                    <a href="#" class="text-[var(--primary-color)] font-medium mt-2 inline-block hover:underline">Read the full announcement &rarr;</a>
-                </article>
-            </div>
-        </section>
-
-        <!-- 3. Contact Content (Initial state: Hidden) -->
-        <section id="content-contact" class="content-section hidden">
-            <div class="bg-white p-8 rounded-xl shadow-lg">
-                <h2 class="text-3xl font-bold mb-6 text-[var(--primary-color)]">Get in Touch with Oppili Engineering</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Contact Information -->
-                    <div>
-                        <p class="text-lg text-gray-700 mb-4">
-                            We look forward to discussing your mechanical, building services, or infrastructure project.
+                <!-- Column 1: Principal Engineer Profile -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-xl border border-gray-200">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/3976246924352018072" alt="High-resolution photo of the Principal Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
+                        
+                        <p class="text-xl font-bold text-gray-900 mb-1 text-center">
+                            Venkat Narasimhan, MIEAust, NER, RPEQ
                         </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <span class="text-[var(--secondary-color)] mr-3">&#9993;</span>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Email</p>
-                                    <a href="mailto:venkat.n@oppiliengg.com.au" class="text-[var(--primary-color)] hover:underline">venkat.n@oppiliengg.com.au</a>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="text-[var(--secondary-color)] mr-3">&#9742;</span>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Mobile</p>
-                                    <a href="tel:+61422985601" class="text-[var(--primary-color)] hover:underline">0422 985 601</a>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <span class="text-[var(--secondary-color)] mr-3">&#127968;</span>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Location</p>
-                                    <p class="text-gray-600">Newcastle, NSW, Australia</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contact Form Placeholder -->
-                    <div>
-                        <form action="#" method="POST" class="space-y-4">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                <input type="text" name="name" id="name" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] p-2 border">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                                <input type="email" name="email" id="email" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] p-2 border">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700">Project Details / Message</label>
-                                <textarea id="message" name="message" rows="4" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] p-2 border"></textarea>
-                            </div>
-                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[var(--primary-color)] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)] transition duration-150 ease-in-out">
-                                Send Message
-                            </button>
-                            <p class="text-xs text-gray-500 mt-2">Note: This form is a placeholder and requires backend integration to send emails.</p>
-                        </form>
+                        <p class="text-md text-saffron font-medium mb-4 text-center">
+                            Principal Mechanical & Compliance Specialist
+                        </p>
+                        <p class="text-gray-600 italic text-center">
+                            "Decades of hands-on engineering across three continents bridge the gap between technical design and regulatory certainty for all your HVAC needs."
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer class="mt-12 py-6 border-t border-gray-200 text-center text-gray-500 text-sm">
-            &copy; 2024 Oppili Engineering. All rights reserved. | Built by Gemini.
-        </footer>
-    </main>
 
-    <script>
-        // --- Gemini API Configuration and Fetching ---
-        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=";
-        const apiKey = ""; // API key is provided by the canvas environment
-
-        // Function to create an HTML article from the API response
-        function createNewsArticle(title, content, sources) {
-            const article = document.createElement('article');
-            article.className = 'mb-6 p-4 border rounded-lg bg-gray-50 shadow-sm';
-            
-            // Title
-            const h4 = document.createElement('h4');
-            h4.className = 'text-xl font-semibold text-gray-800 mb-2';
-            h4.textContent = title;
-            article.appendChild(h4);
-
-            // Date (Current Date for 'latest' content)
-            const dateP = document.createElement('p');
-            dateP.className = 'text-sm text-gray-500 mb-3';
-            const now = new Date();
-            dateP.textContent = 'Published: ' + now.toLocaleDateString('en-AU', { month: 'long', day: 'numeric', year: 'numeric' }) + ' (Automated)';
-            article.appendChild(dateP);
-
-            // Content
-            const contentP = document.createElement('p');
-            contentP.className = 'text-gray-600 mb-2';
-            contentP.textContent = content;
-            article.appendChild(contentP);
-
-            // Citations
-            if (sources && sources.length > 0) {
-                const sourceDiv = document.createElement('div');
-                sourceDiv.className = 'mt-3 pt-2 border-t border-gray-200';
+                <!-- Column 2: Key Expertise -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Why Choose Oppili Consulting for Mechanical HVAC?</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Comprehensive Australian Mechanical Registration:</strong> Registered Professional Engineer in QLD (RPEQ 28511), VIC (PE0007074), TAS, and NSW (PRE0000083). Ensuring professional indemnity and quality for mechanical design across multiple jurisdictions.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">NSW Design Practitioner & Mechanical Certifier:</strong> NSW Registered Design Practitioner (DEP0000084) and Certifier - Mechanical Engineer (BDC04991). We can design *and* certify the compliance of our mechanical systems, simplifying your approval process.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Deep Sector Experience:</strong> Specialist knowledge in high-rise residential, healthcare (hospitals/aged care), commercial towers, and complex industrial/data centre infrastructure, all with a mechanical focus.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-saffron text-xl mr-3 mt-1">&#9733;</span>
+                            <div>
+                                <strong class="font-semibold">Compliance Focused:</strong> Every HVAC design is intrinsically linked to the National Construction Code (NCC), BCA, and relevant Australian Standards (AS), minimizing variations and risk during construction.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 
-                const sourceTitle = document.createElement('p');
-                sourceTitle.className = 'text-xs font-medium text-gray-600';
-                sourceTitle.textContent = 'Sources:';
-                sourceDiv.appendChild(sourceTitle);
+                <!-- New Row for International Projects -->
+                <div class="lg:col-span-3 mt-8 pt-8 border-t border-gray-300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">International Mechanical Experience</h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our mechanical expertise is built on nearly 20 years of delivering large-scale, complex projects across the Middle East and Asia, bringing a global perspective to our local compliance work. Key international experience includes:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Healthcare Infrastructure:</strong> Hamad Bin Khalifa Medical City, Qatar ($320M Multispecialty Hospital) and Al Ain Hospital reconstruction, Abu Dhabi, UAE.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Commercial Towers:</strong> Al Abdul Karim Holding tower (42 storeys, $350m Commercial and Office building).</div>
+                            </li>
+                        </ul>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Hospitality & Residential:</strong> Al Khorayef - Fraser Suites 4-star hotel, Saudi Arabia ($365M).</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-saffron text-xl mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-semibold">Industrial HVAC & Air Control:</strong> Design for Hyundai paint shops, Saint Gobain Industries, Kohler Co plants (India), and air pollution control systems for cement, steel, and refinery projects worldwide.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End New Row for International Projects -->
 
-                sources.slice(0, 3).forEach(source => { // Limit to 3 sources
-                    const link = document.createElement('a');
-                    link.href = source.uri;
-                    link.target = '_blank';
-                    link.className = 'citation-link hover:underline';
-                    link.textContent = `- ${source.title}`;
-                    sourceDiv.appendChild(link);
-                });
-                article.appendChild(sourceDiv);
-            }
+                <div class="lg:col-span-3 mt-8 pt-4 border-t border-gray-300">
+                    <a href="Oppili Engineering - Capability_Statement - CS001-v01.pdf" download
+                           class="inline-flex items-center bg-saffron text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-saffron transition duration-300 opacity-90 hover:opacity-100">
+                        <!-- Download Icon (Inline SVG) -->
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download Full Capability Statement
+                    </a>
+                </div>
 
-            return article;
-        }
+            </div>
+        </div>
+    </section>
 
-        // Main function to fetch automated news
-        async function fetchAutomatedNews() {
-            const container = document.getElementById('automated-news-container');
-            const loadingIndicator = document.getElementById('news-loading');
+    <!-- Contact Section (Dark Grey background, Accent buttons) -->
+    <section id="contact" class="py-16 md:py-24 bg-gray-600 text-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="section-header text-4xl font-extrabold mb-8 text-white after:bg-saffron">
+                Discuss Your Next HVAC Project
+            </h2>
+            <p class="text-lg mb-8">
+                Contact our principal engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
+            </p>
             
-            // Hide previous content and show loading indicator
-            container.innerHTML = ''; 
-            container.appendChild(loadingIndicator);
+            <!-- Functional Contact Form (using FormSubmit) -->
+            <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
+            <div id="form-message-container" class="mb-4"></div>
+            <form action="https://formsubmit.co/YOUR_EMAIL_ADDRESS_HERE" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
+                <!-- Honey pot to catch spam -->
+                <input type="text" name="_honey" style="display:none">
+                <!-- Redirect after success (optional) -->
+                <input type="hidden" name="_next" value="https://oppiliengg.com.au/thank-you.html">
 
-            const systemPrompt = "You are an expert Australian Mechanical/HVAC engineer and compliance analyst. Your task is to find the absolute latest, highly relevant news, standards, and regulatory updates in the Australian Building Services and HVAC industry, especially focusing on NCC or BCA changes. Summarize the findings into a compelling article title and a concise 3-4 sentence paragraph suitable for a professional consultancy website. The output MUST be a JSON array of two separate news items.";
-            
-            // We use a query that covers the key areas of the consultancy's focus
-            const userQuery = "Find the two most critical, current updates for Australian HVAC engineering, including any recent NCC, Section J, or RPEQ-related standards changes.";
+                <div>
+                    <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="Project Lead / Architect">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-1">Work Email</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="project@firmname.com.au">
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium mb-1">Project Subject (e.g., Section J Audit)</label>
+                    <input type="text" id="subject" name="_subject" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="New Commercial Tower HVAC Design">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium mb-1">Project Details</label>
+                    <textarea id="message" name="message" rows="4" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="Briefly describe the project location, building classification, required mechanical/HVAC services, and key compliance challenges..."></textarea>
+                </div>
+                <div class="text-center md:text-left">
+                    <button type="submit"
+                        class="w-full md:w-auto bg-white text-saffron font-bold px-10 py-4 rounded-xl shadow-xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        Submit Enquiry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-            // Define the JSON structure for the model to follow
-            const responseSchema = {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        "title": { "type": "STRING", "description": "A compelling, professional title for the news update." },
-                        "summary": { "type": "STRING", "description": "A concise, 3-4 sentence summary of the update." }
-                    },
-                    required: ["title", "summary"]
-                }
-            };
+    <!-- Footer (Darker Grey) -->
+    <footer class="bg-gray-700 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4 space-x-6 text-sm">
+                <a href="#services" class="hover-text-saffron">Mechanical Services</a>
+                <a href="#projects" class="hover-text-saffron">Projects</a>
+                <a href="#expertise" class="hover-text-saffron">Expertise</a>
+                <a href="#contact" class="hover-text-saffron">Contact</a>
+            </div>
+            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
+            <p class="text-xs text-gray-400">
+                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
+            </p>
+        </div>
+    </footer>
 
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                tools: [{ "google_search": {} }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: responseSchema
-                },
-            };
-
-            // Use exponential backoff for robust API calling
-            const maxRetries = 5;
-            let currentDelay = 1000;
-
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(API_URL + apiKey, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    // Process response and display
-                    const candidate = result.candidates?.[0];
-
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        const jsonText = candidate.content.parts[0].text;
-                        const newsItems = JSON.parse(jsonText);
-                        
-                        let sources = [];
-                        const groundingMetadata = candidate.groundingMetadata;
-                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
-                            sources = groundingMetadata.groundingAttributions.map(attribution => ({
-                                uri: attribution.web?.uri,
-                                title: attribution.web?.title,
-                            })).filter(source => source.uri && source.title);
-                        }
-
-                        container.innerHTML = ''; // Clear loading indicator
-                        
-                        if (Array.isArray(newsItems)) {
-                            newsItems.forEach(item => {
-                                const article = createNewsArticle(item.title, item.summary, sources);
-                                container.appendChild(article);
-                            });
-                        } else {
-                            throw new Error("API did not return a valid JSON array structure.");
-                        }
-                        return; // Success, exit loop
-                    }
-                    throw new Error("API response content structure invalid.");
-
-                } catch (error) {
-                    console.error(`Attempt ${i + 1} failed:`, error);
-                    if (i < maxRetries - 1) {
-                        await new Promise(resolve => setTimeout(resolve, currentDelay));
-                        currentDelay *= 2; // Exponential backoff
-                    } else {
-                        // Final failure: show error message
-                        container.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg">Error loading automated news: Please try refreshing the page.</div>';
-                    }
-                }
-            }
-        }
-        
-        // --- Tab Switching Logic ---
-        function showTab(targetId) {
-            // Hide all content sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-
-            // Deactivate all tab buttons
-            document.querySelectorAll('.tab').forEach(button => {
-                button.classList.remove('active');
-                button.classList.remove('bg-[var(--secondary-color)]');
-                button.classList.remove('text-white');
-                button.classList.add('text-gray-700');
-                button.classList.add('hover:bg-gray-100');
-            });
-
-            // Show the selected content section
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) {
-                targetContent.classList.remove('hidden');
-            }
-
-            // Activate the corresponding tab button
-            const targetButton = document.querySelector(`[data-target="${targetId}"]`);
-            if (targetButton) {
-                targetButton.classList.add('active');
-                targetButton.classList.remove('text-gray-700');
-                targetButton.classList.remove('hover:bg-gray-100');
-                targetButton.classList.add('bg-[var(--secondary-color)]');
-                targetButton.classList.add('text-white');
-            }
-
-            // Special check: If the News tab is opened, fetch the automated news
-            if (targetId === 'content-news') {
-                fetchAutomatedNews();
-            }
-        }
-
-        // Initialize: ensure the home tab is active on load
-        window.onload = () => {
-             // Set up the initial state to the 'Home' tab.
-             showTab('content-home');
-        };
-    </script>
 </body>
 </html>
