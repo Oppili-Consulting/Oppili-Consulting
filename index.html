@@ -44,9 +44,11 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
         }
         .hero-bg {
-            /* Dark Grey Overlay */
-            background: linear-gradient(135deg, rgba(50, 50, 50, 0.9), rgba(30, 30, 30, 0.9)), 
-                        url('https://placehold.co/1200x600/333333/cccccc?text=High-Performance+Building') center/cover no-repeat;
+            /* --- UPDATED: Using the uploaded HVAC system image --- */
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.65), rgba(0, 0, 0, 0.5)), 
+                        url('HD-wallpaper-hvac-hvac-system.jpg') center/cover no-repeat;
+            background-size: cover; /* Ensure it covers the entire section */
+            background-position: center; /* Center the image */
         }
         /* Icon styles - using Unicode for simplicity */
         .icon {
@@ -118,7 +120,7 @@
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
             <!-- Logo (Image + Text) -->
             <a href="index.html" class="flex items-center space-x-2">
-                <!-- Image Logo: logo-no-background.png -->
+                <!-- Image Logo: logo-no-background.png (Attempting to load uploaded file directly) -->
                 <img src="logo-no-background.png" 
                      alt="Oppili Engineering Lotus Logo" 
                      class="h-12 w-auto object-contain">
