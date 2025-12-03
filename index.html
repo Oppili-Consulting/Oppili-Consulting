@@ -233,10 +233,11 @@
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Specialist Mechanical & Energy Services</h2>
             
             <!-- Services Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Note: The grid layout will now automatically adapt with 2 wide columns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                 <!-- Service 1: Comprehensive HVAC System Design -->
-                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
                     <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
                     <!-- Image Tag for a Technical Diagram - NOW USING UPLOADED IMAGE -->
@@ -252,7 +253,7 @@
                 </div>
 
                 <!-- Service 2: NCC/BCA Compliance & Section J -->
-                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl lg:col-span-2">
+                <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="Compliance Icon">&#128218;</div>
                     <h3 class="text-xl font-bold mb-3">Build Smart — Section J & J1V3 Compliance, Simplified.</h3>
                     <!-- NEW IMAGE ADDED HERE -->
@@ -275,6 +276,10 @@
                         With expert energy-modelling, glazing/insulation optimisation, and full compliance documentation — we turn complex regulation into design freedom, helping your project deliver lasting value.
                     </p>
                 </div>
+
+                <!-- Service 3 (NEW): Industrial Ventilation & Air Quality -->
+                <!-- Removed per user request -->
+
             </div>
         </div>
     </section>
@@ -285,7 +290,7 @@
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Projects</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <!-- Project 1: Healthcare/Aged Care (HVAC Specific) -->
+                <!-- Project 1: Healthcare/Aged Care -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
                     <img src="https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior" onerror="this.onerror=null; this.src='https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior';" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
                     <div class="p-6">
@@ -296,7 +301,7 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Commercial & High-Rise (HVAC Specific) -->
+                <!-- Project 2: Commercial & High-Rise -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
                     <img src="https://placehold.co/600x300/d0d0d0/555555?text=Commercial+Tower+Facade" onerror="this.onerror=null; this.src='https://placehold.co/600x300/d0d0d0/555555?text=Commercial+Tower+Facade';" alt="High-rise commercial tower." class="w-full h-48 object-cover">
                     <div class="p-6">
@@ -330,7 +335,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT CARD: Industrial Ventilation & Air Quality Control -->
+                <!-- Project 5: Industrial Ventilation & Air Quality Control -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
                     <img src="https://placehold.co/600x300/b0b0b0/555555?text=Industrial+Ventilation+System" onerror="this.onerror=null; this.src='https://placehold.co/600x300/b0b0b0/555555?text=Industrial+Ventilation+System';" alt="Heavy duty industrial ventilation ductwork and fans." class="w-full h-48 object-cover">
                     <div class="p-6">
@@ -339,6 +344,18 @@
                         <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Industrial</span>
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full mr-2">Fume Extraction</span>
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Dust Control</span>
+                    </div>
+                </div>
+
+                <!-- Project 6: Education Sector -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
+                    <img src="https://placehold.co/600x300/909090/ffffff?text=Education+Campus" onerror="this.onerror=null; this.src='https://placehold.co/600x300/909090/ffffff?text=Education+Campus';" alt="Modern university or school campus building." class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Education Sector (Class 9b)</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Specialised mechanical design for schools, universities, and TAFE facilities (Class 9b). We focus on high-performance learning environments featuring CO2-demand controlled ventilation, advanced filtration, and acoustic comfort to meet NCC 2022 indoor air quality requirements.</p>
+                        <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">Education</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full mr-2">Class 9b</span>
+                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">CO2 Control</span>
                     </div>
                 </div>
                 <!-- END NEW PROJECT CARD -->
@@ -362,13 +379,13 @@
                 <!-- Column 1: Senior Mechanical Engineer Profile -->
                 <div class="lg:col-span-1">
                     <div class="bg-gray-50 p-6 rounded-xl shadow-xl border border-gray-200">
-                        <img src="https://placehold.co/600x800/e0e0e0/555555?text=Principal+Engineer" onerror="this.onerror=null; this.src='https://placehold.co/600x800/e0e0e0/555555?text=Principal+Engineer';" alt="High-resolution photo of the Principal Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
+                        <img src="https://placehold.co/600x800/e0e0e0/555555?text=Senior+Mechanical+Engineer" onerror="this.onerror=null; this.src='https://placehold.co/600x800/e0e0e0/555555?text=Senior+Mechanical+Engineerr';" alt="High-resolution photo of the Senior Mechanical Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
                         
                         <p class="text-xl font-bold text-gray-900 mb-1 text-center">
                             Venkat Narasimhan, MIEAust, NER, RPEQ
                         </p>
                         <p class="text-md text-saffron font-medium mb-2 text-center">
-                            Senior Mechanical Engineer & Compliance Specialist
+                            Senior Mechanical Engineer
                         </p>
                         
                         <div class="space-y-2 mb-4">
