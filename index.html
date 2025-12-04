@@ -6,7 +6,7 @@
     <title>Oppili Engineering | Specialist Mechanical HVAC Systems Design & Compliance</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Baumans Font -->
+    <!-- Load Baumans Font (as requested) -->
     <link href="https://fonts.googleapis.com/css2?family=Baumans&display=swap" rel="stylesheet">
     <style>
         /* Define Accent Color (Vibrant Orange-Red) */
@@ -45,11 +45,11 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
         }
         .hero-bg {
-            /* Using a robust, dark background for the hero */
-            background: linear-gradient(135deg, rgba(30, 30, 30, 0.7), rgba(0, 0, 0, 0.7)), 
-                        #1f2937; /* Solid dark grey fallback */
-            background-size: cover;
-            background-position: center;
+            /* Using the uploaded HVAC system image for the hero */
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.65), rgba(0, 0, 0, 0.5)), 
+                        url('HD-wallpaper-hvac-hvac-system.jpg') center/cover no-repeat;
+            background-size: cover; /* Ensure it covers the entire section */
+            background-position: center; /* Center the image */
         }
         /* Icon styles - using Unicode for simplicity */
         .icon {
@@ -233,18 +233,16 @@
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Specialist Mechanical & Energy Services</h2>
             
             <!-- Services Grid -->
+            <!-- Note: The grid layout will now automatically adapt with 2 wide columns -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                 <!-- Service 1: Comprehensive HVAC System Design -->
                 <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
                     <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
+                    <!-- Image Tag for a Technical Diagram - NOW USING UPLOADED IMAGE -->
                     <p class="mb-4">
-                        <!-- Placeholder Image URL -->
-                        <img src="https://placehold.co/600x300/f3f4f6/374151?text=HVAC+System+Design" 
-                             alt="HVAC System Design Schematic" 
-                             class="w-full h-48 object-cover rounded-lg mb-4"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x300/f3f4f6/374151?text=Image+Load+Failed';">
+                        <img src="HD-wallpaper-access-control-hvac-system.jpg" alt="Close-up of industrial HVAC ductwork and controls, highlighting precision and system quality." class="w-full h-auto rounded-lg shadow-md">
                     </p>
                     <ul class="text-gray-600 space-y-2 text-base">
                         <li>End-to-end design, drafting, and specification of Heating, Ventilation, and Air Conditioning (HVAC) systems.</li>
@@ -258,12 +256,9 @@
                 <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="Compliance Icon">&#128218;</div>
                     <h3 class="text-xl font-bold mb-3">Build Smart — Section J & J1V3 Compliance, Simplified.</h3>
+                    <!-- NEW IMAGE ADDED HERE -->
                     <p class="mb-4">
-                        <!-- Placeholder Image URL -->
-                        <img src="https://placehold.co/600x300/e0f2f1/047857?text=Section+J+Energy+Modeling" 
-                             alt="Energy Performance Modeling & Compliance" 
-                             class="w-full h-48 object-cover rounded-lg mb-4"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x300/e0f2f1/047857?text=Image+Load+Failed';">
+                        <img src="commercial-building-energy-saving-02.jpg" alt="Modern commercial building facade with visible shading and energy efficient design elements." class="w-full h-48 object-cover rounded-lg shadow-md">
                     </p>
                     <p class="text-gray-700 font-semibold mb-4">Performance-Based, Energy-Efficient Buildings — Sustainable, Future-Ready & Code-Compliant.</p>
                     <p class="text-gray-600 mb-4 text-base">
@@ -281,6 +276,10 @@
                         With expert energy-modelling, glazing/insulation optimisation, and full compliance documentation — we turn complex regulation into design freedom, helping your project deliver lasting value.
                     </p>
                 </div>
+
+                <!-- Service 3 (NEW): Industrial Ventilation & Air Quality -->
+                <!-- Removed per user request -->
+
             </div>
         </div>
     </section>
@@ -291,13 +290,9 @@
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Projects</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <!-- Project 1: Aged Care, Child Care & Early Education - IMAGE UPDATED HERE -->
+                <!-- Project 1: Healthcare/Aged Care -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Image updated with uploaded file: Aged care Facility Exterior.jpg -->
-                    <img src="Aged care Facility Exterior.jpg" 
-                         alt="Exterior of a modern Aged Care Facility with a large green lawn and lush hillside in the background." 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/fff1e1/d97706?text=Image+Load+Failed';">
+                    <img src="https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior" onerror="this.onerror=null; this.src='https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior';" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Aged Care, Child Care & Early Education</h3>
                         <p class="text-gray-600 mb-4 text-sm">Design of purpose-built HVAC and critical cooling systems for aged care, childcare and early-education (Class 9c) facilities — creating high-performance indoor-air solutions focused on ventilation, air quality and infection control.</p>
@@ -306,13 +301,9 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Commercial & High-Rise (SVG CORRECTED HERE) -->
+                <!-- Project 2: Commercial & High-Rise (IMAGE UPDATED HERE) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Placeholder Image URL -->
-                    <img src="https://placehold.co/400x200/e5e7eb/4b5563?text=Commercial+Tower+Design" 
-                         alt="Commercial Tower Energy Model (Section J)" 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/e5e7eb/4b5563?text=Image+Load+Failed';">
+                    <img src="Commercial Tower Facade.jpg" alt="High-rise commercial tower with modern glass facade." onerror="this.onerror=null; this.src='https://placehold.co/600x300/d0d0d0/555555?text=Commercial+Tower+Facade';" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Commercial Section J & Energy Efficiency</h3>
                         <p class="text-gray-600 mb-4 text-sm">Energy modeling and high-efficiency HVAC design achieving superior Section J (J1V3) compliance for large commercial and high-rise developments under NCC 2022 standards.</p>
@@ -323,11 +314,7 @@
                 
                 <!-- Project 3: Healthcare (Mechanical Specific) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Placeholder Image URL -->
-                    <img src="https://placehold.co/400x200/fecaca/b91c1c?text=Critical+Cooling+Infrastructure" 
-                         alt="Critical Cooling Plant Schematic" 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/fecaca/b91c1c?text=Image+Load+Failed';">
+                    <img src="https://placehold.co/600x300/c0c0c0/555555?text=Healthcare" onerror="this.onerror=null; this.src='https://placehold.co/600x300/c0c0c0/555555?text=Healthcare';" alt="Data centre cooling plant." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Healthcare & Critical Cooling Infrastructure</h3>
                         <p class="text-gray-600 mb-4 text-sm">We specialise in engineering purpose-built HVAC and critical cooling infrastructure for healthcare facilities — designing zoned, redundant, high-precision climate systems that ensure optimal temperature, humidity, air-quality and infection-control standards, safeguarding patient safety, medical equipment and facility reliability at every step.</p>
@@ -338,11 +325,7 @@
 
                 <!-- Project 4: Multi-Unit Residential (Class 2 & 3) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Placeholder Image URL -->
-                    <img src="https://placehold.co/400x200/e0e7ff/4338ca?text=Residential+Ventilation" 
-                         alt="Residential Car Park Ventilation" 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/e0e7ff/4338ca?text=Image+Load+Failed';">
+                    <img src="https://placehold.co/600x300/a0a0a0/555555?text=Residential+Apartment+Buildings" onerror="this.onerror=null; this.src='https://placehold.co/600x300/a0a0a0/555555?text=Residential+Apartment+Building';" alt="Modern multi-unit residential apartment building." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Multi-Unit Residential (Class 2 & 3) HVAC Systems</h3>
                         <p class="text-gray-600 mb-4 text-sm">Mechanical Services design for multi-unit residential buildings, including Multi-level car park Ventilation Systems, Stair pressurisation systems, Relief Air Systems, Lift Shaft Pressurisation & Ventilation Systems, and communal plant efficiency.</p>
@@ -354,11 +337,7 @@
 
                 <!-- Project 5: Industrial Ventilation & Air Quality Control -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Placeholder Image URL -->
-                    <img src="https://placehold.co/400x200/fce7f3/be185d?text=Industrial+Fume+Extraction" 
-                         alt="Industrial Fume Extraction Design" 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/fce7f3/be185d?text=Image+Load+Failed';">
+                    <img src="https://placehold.co/600x300/b0b0b0/555555?text=Industrial+Ventilation+System" onerror="this.onerror=null; this.src='https://placehold.co/600x300/b0b0b0/555555?text=Industrial+Ventilation+System';" alt="Heavy duty industrial ventilation ductwork and fans." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Industrial Ventilation & Air Quality Control</h3>
                         <p class="text-gray-600 mb-4 text-sm">Specialist design and compliance for industrial exhaust systems, cleanrooms, dust collection, fume extraction (LEVs), and air pollution control for manufacturing, refineries, and chemical processing plants, ensuring safety and compliance with EPA and WHS standards.</p>
@@ -370,11 +349,7 @@
 
                 <!-- Project 6: Education Sector -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <!-- Placeholder Image URL -->
-                    <img src="https://placehold.co/400x200/ede9fe/6d28d9?text=Education+Sector+HVAC" 
-                         alt="School CO2-Controlled Ventilation" 
-                         class="w-full h-48 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x200/ede9fe/6d28d9?text=Image+Load+Failed';">
+                    <img src="https://placehold.co/600x300/909090/ffffff?text=Education+Campus" onerror="this.onerror=null; this.src='https://placehold.co/600x300/909090/ffffff?text=Education+Campus';" alt="Modern university or school campus building." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Education Sector (Class 9b)</h3>
                         <p class="text-gray-600 mb-4 text-sm">Specialised mechanical design for schools, universities, and TAFE facilities (Class 9b). We focus on high-performance learning environments featuring CO2-demand controlled ventilation, advanced filtration, and acoustic comfort to meet NCC 2022 indoor air quality requirements.</p>
@@ -383,7 +358,7 @@
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">CO2 Control</span>
                     </div>
                 </div>
-                <!-- END PROJECT CARD -->
+                <!-- END NEW PROJECT CARD -->
 
             </div>
             <div class="text-center mt-12">
@@ -404,11 +379,7 @@
                 <!-- Column 1: Senior Mechanical Engineer Profile -->
                 <div class="lg:col-span-1">
                     <div class="bg-gray-50 p-6 rounded-xl shadow-xl border border-gray-200">
-                        <!-- Profile Image Placeholder (Original Image URL) -->
-                        <img src="https://placehold.co/192x240/ff4136/ffffff?text=Engineer+Profile" 
-                             alt="Professional Engineer Profile" 
-                             class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6"
-                             onerror="this.onerror=null;this.src='https://placehold.co/192x240/ff4136/ffffff?text=Image+Load+Failed';">
+                        <img src="https://placehold.co/600x800/e0e0e0/555555?text=Senior+Mechanical+Engineer" onerror="this.onerror=null; this.src='https://placehold.co/600x800/e0e0e0/555555?text=Senior+Mechanical+Engineerr';" alt="High-resolution photo of the Senior Mechanical Engineer with an HVAC system background." class="w-48 h-60 object-cover rounded-xl shadow-lg border-4 border-saffron mx-auto mb-6">
                         
                         <p class="text-xl font-bold text-gray-900 mb-1 text-center">
                             Venkat Narasimhan, MIEAust, NER, RPEQ
@@ -430,7 +401,7 @@
                                 View NSW Professional Engineer / Design Practitioner Registration
                             </a>
                             
-                            <!-- Queensland RPEQ Register Portfolio Link -->
+                            <!-- Queensland RPEQ Register Portfolio Link (NEWLY ADDED) -->
                             <a href="https://portal.bpeq.qld.gov.au/Portal/Search-Register-Profile.aspx?ID=44751" target="_blank" 
                                class="block text-center text-sm font-semibold text-gray-700 hover:text-saffron transition duration-150 underline">
                                 View Queensland RPEQ Register Portfolio
