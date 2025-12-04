@@ -131,10 +131,12 @@
     <!-- Navbar/Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- Logo (Text Fallback used here since local files fail) -->
+            <!-- Logo (Image + Text) -->
             <a href="#top" class="flex items-center space-x-2">
-                <!-- Simple Logo Placeholder -->
-                <div class="h-12 w-12 bg-saffron rounded-full flex items-center justify-center text-white text-xl font-extrabold">OE</div>
+                <!-- Image Logo: logo-no-background.png (Attempting to load uploaded file directly) -->
+                <img src="logo-no-background.png" 
+                     alt="Oppili Engineering Lotus Logo" 
+                     class="h-12 w-auto object-contain">
                 
                 <!-- Text Logo and Tagline -->
                 <div class="flex flex-col items-start leading-none">
