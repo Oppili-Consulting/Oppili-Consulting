@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oppili Engineering | Specialist Mechanical HVAC Systems Design & Compliance</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Baumans Font (as requested) -->
     <link href="https://fonts.googleapis.com/css2?family=Baumans&display=swap" rel="stylesheet">
     <style>
         /* Define Accent Color (Vibrant Orange-Red) */
@@ -45,8 +47,7 @@
         .hero-bg {
             /* Using the uploaded HVAC system image for the hero */
             background: linear-gradient(135deg, rgba(30, 30, 30, 0.65), rgba(0, 0, 0, 0.5)), 
-                        url('HD-wallpaper-hvac-hvac-system.jpg') 
-                        center/cover no-repeat;
+                        url('HD-wallpaper-hvac-hvac-system.jpg') center/cover no-repeat;
             background-size: cover; /* Ensure it covers the entire section */
             background-position: center; /* Center the image */
         }
@@ -70,29 +71,8 @@
             background-color: #f3f4f6;
             color: var(--color-saffron);
         }
-        
-        /* === NEW STYLES FOR DYNAMIC NEWS SECTION === */
-        .filter-btn {
-            /* Tailwind classes applied via @apply - using a light grey background with hover */
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 0.875rem; /* text-sm */
-            transition: all 0.2s;
-            background-color: #e5e7eb; /* bg-gray-200 */
-            color: #4b5563; /* text-gray-700 */
-        }
-        .filter-btn:hover:not(.active) {
-            background-color: rgba(255, 65, 54, 0.75); /* hover:bg-saffron/75 */
-            color: white;
-        }
-        .filter-btn.active {
-             /* Active state uses the accent color */
-             background-color: var(--color-saffron);
-             color: white;
-        }
-        /* =========================================== */
     </style>
+    <!-- Simple script for form submission message and mobile menu toggle -->
     <script>
         // Function to handle success/error messages for the form
         function showMessage(message, isSuccess = true) {
@@ -112,6 +92,7 @@
 
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
+
             try {
                 // Using FormSubmit endpoint placeholder
                 // NOTE: In a real environment, you would replace this action with a working API endpoint.
@@ -122,6 +103,7 @@
                         'Accept': 'application/json'
                     }
                 });
+
                 if (response.ok) {
                     showMessage("Thank you! Your enquiry has been sent. We will respond shortly.", true);
                     form.reset();
@@ -146,13 +128,17 @@
 </head>
 <body class="text-gray-800">
 
+    <!-- Navbar/Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo (Image + Text) -->
             <a href="#top" class="flex items-center space-x-2">
+                <!-- Image Logo: logo-no-background.png (Attempting to load uploaded file directly) -->
                 <img src="logo-no-background.png" 
                      alt="Oppili Engineering Lotus Logo" 
                      class="h-12 w-auto object-contain">
                 
+                <!-- Text Logo and Tagline -->
                 <div class="flex flex-col items-start leading-none">
                     <span class="text-3xl font-extrabold tracking-wider">
                         <span class="text-gray-700">OPPILI</span> <span class="text-saffron">ENGINEERING</span>
@@ -163,49 +149,53 @@
                 </div>
             </a>
             
+            <!-- Desktop Navigation -->
             <div class="space-x-2 hidden md:flex font-semibold text-lg">
                 <a href="#services" class="text-gray-600 nav-link">Our Services</a>
                 <a href="#projects" class="text-gray-600 nav-link">Projects</a>
                 <a href="#expertise" class="text-gray-600 nav-link">Our People & Expertise</a>
-                <a href="#hvac-news" class="text-gray-600 nav-link">Industry News</a>
                 <a href="#contact" class="text-gray-600 nav-link">Contact</a>
             </div>
             
+            <!-- Mobile Menu Button -->
             <button class="md:hidden text-gray-700 focus:outline-none" onclick="toggleMobileMenu()">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
         
+        <!-- Mobile Menu (Dropdown) -->
         <div id="mobile-menu" class="hidden md:hidden bg-gray-50 border-t border-gray-200">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
                 <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Our Services</a>
                 <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Projects</a>
                 <a href="#expertise" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Our People & Expertise</a>
-                <a href="#hvac-news" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Industry News</a>
                 <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-saffron mt-1 shadow-md">Contact Us</a>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section (Dark Grey background, Accent buttons) -->
     <section id="top" class="hero-bg text-white py-28 md:py-40">
         <div class="container mx-auto px-4 text-center">
+            <!-- Slogan is the main heading text -->
             <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight max-w-5xl mx-auto">
                 We design HVAC systems that make every building perform — efficiently, reliably, and for decades.
             </h1>
             
+            <!-- Call to Action -->
             <a href="#services" class="inline-block bg-saffron text-white font-bold px-10 py-4 rounded-xl shadow-2xl text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 hover:text-gray-800">
                 Explore Compliance Solutions
             </a>
         </div>
     </section>
-  
+    
+    <!-- Introduction/Value Proposition Section -->
     <section id="introduction" class="py-16 md:py-20 bg-gray-100">
         <div class="container mx-auto px-4 max-w-5xl">
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-8">Engineering Certainty from Concept to Certification</h2>
             <div class="space-y-6 text-lg text-gray-700">
                 <p>
-                    At Oppili Engineering, we provide tailored mechanical system design and delivery commercial, industrial, healthcare, and public-sector projects across NSW Australia.
-                    With over 20 years of experience in the industry, we blend deep technical expertise with practical know-how to deliver HVAC, and mechanical systems that perform — efficiently, safely, and reliably.
+                    At Oppili Engineering, we provide tailored mechanical system design and delivery commercial, industrial, healthcare, and public-sector projects across NSW Australia. With over 20 years of experience in the industry, we blend deep technical expertise with practical know-how to deliver HVAC, and mechanical systems that perform — efficiently, safely, and reliably.
                 </p>
                 <p>
                     We hold full accreditation in NSW as Professional Engineer, Design Practitioner and Certifier status, Queensland (RPEQ), Victoria, Tasmania, and the ACT — so you can be confident our work meets all local standards and regulations from the National Construction Code (NCC) to specific state compliance rules.
@@ -237,18 +227,22 @@
         </div>
     </section>
     
+    <!-- Detailed Services Section -->
     <section id="services" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Specialist Mechanical & Energy Services</h2>
             
+            <!-- Services Grid -->
+            <!-- Note: The grid layout will now automatically adapt with 2 wide columns -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
+                <!-- Service 1: Comprehensive HVAC System Design -->
                 <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="HVAC Icon">&#128699;</div>
                     <h3 class="text-xl font-bold mb-3">Comprehensive HVAC System Design</h3>
+                    <!-- Image Tag for a Technical Diagram - NOW USING UPLOADED IMAGE -->
                     <p class="mb-4">
-                        <img src="HD-wallpaper-access-control-hvac-system.jpg" alt="Close-up of industrial HVAC ductwork and controls, highlighting precision and system quality."
-                        class="w-full h-auto rounded-lg shadow-md">
+                        <img src="HD-wallpaper-access-control-hvac-system.jpg" alt="Close-up of industrial HVAC ductwork and controls, highlighting precision and system quality." class="w-full h-auto rounded-lg shadow-md">
                     </p>
                     <ul class="text-gray-600 space-y-2 text-base">
                         <li>End-to-end design, drafting, and specification of Heating, Ventilation, and Air Conditioning (HVAC) systems.</li>
@@ -258,16 +252,17 @@
                     </ul>
                 </div>
 
+                <!-- Service 2: NCC/BCA Compliance & Section J -->
                 <div class="service-card bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-xl">
                     <div class="icon text-saffron mb-4" role="img" aria-label="Compliance Icon">&#128218;</div>
                     <h3 class="text-xl font-bold mb-3">Build Smart — Section J & J1V3 Compliance, Simplified.</h3>
+                    <!-- NEW IMAGE ADDED HERE -->
                     <p class="mb-4">
                         <img src="commercial-building-energy-saving-02.jpg" alt="Modern commercial building facade with visible shading and energy efficient design elements." class="w-full h-48 object-cover rounded-lg shadow-md">
                     </p>
                     <p class="text-gray-700 font-semibold mb-4">Performance-Based, Energy-Efficient Buildings — Sustainable, Future-Ready & Code-Compliant.</p>
                     <p class="text-gray-600 mb-4 text-base">
-                        Today’s buildings are more than concrete and walls — they’re living, working environments that must deliver comfort, efficiency and sustainability.
-                        Through Section J and J1V3 compliance pathways, we enable you to realise designs that meet rigorous energy-efficiency and greenhouse-gas emissions standards — without compromising on aesthetics or functionality.
+                        Today’s buildings are more than concrete and walls — they’re living, working environments that must deliver comfort, efficiency and sustainability. Through Section J and J1V3 compliance pathways, we enable you to realise designs that meet rigorous energy-efficiency and greenhouse-gas emissions standards — without compromising on aesthetics or functionality.
                     </p>
                     <p class="text-gray-600 mb-3 text-base font-semibold">
                         Whether you take the standard compliance route or opt for a performance-based J1V3 solution, we ensure your building:
@@ -282,23 +277,28 @@
                     </p>
                 </div>
 
-                </div>
+                <!-- Service 3 (NEW): Industrial Ventilation & Air Quality -->
+                <!-- Removed per user request -->
+
+            </div>
         </div>
     </section>
     
+    <!-- Projects Section -->
     <section id="projects" class="py-16 md:py-24 bg-gray-100">
         <div class="container mx-auto px-4">
             <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-12">Our Projects</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Healthcare/Aged Care -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <img src="Aged%20care%20Facility%20Exterior.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior';"
-                    alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
+                    <!-- Updated with URL encoded spaces -->
+                    <img src="Aged%20care%20Facility%20Exterior.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x300/e0e0e0/555555?text=Aged+Care+Facility+Exterior';" alt="Aged care facility with clean modern design." class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Aged Care, Child Care & Early Education</h3>
                         <p class="text-gray-600 mb-4 text-sm">Design of purpose-built HVAC and critical cooling systems for aged care, childcare and early-education (Class 9c) facilities — creating high-performance indoor-air solutions focused on ventilation, air quality and infection control.</p>
                         <span class="inline-block bg-saffron text-white text-xs font-semibold px-3 py-1 rounded-full mr-2">HVAC</span>
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Infection Control</span>
-                        <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Indoor Air Quality</span>
                     </div>
                 </div>
 
@@ -314,7 +314,7 @@
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Section J</span>
                     </div>
                 </div>
-
+                
                 <!-- Project 3: Healthcare (Mechanical Specific) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
                     <img src="Healthcare.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x300/c0c0c0/555555?text=Healthcare';" alt="Healthcare facility HVAC infrastructure." class="w-full h-48 object-cover">
@@ -327,9 +327,14 @@
                     </div>
                 </div>
 
+                <!-- Project 4: Residential Apartments (Class 2 & 3) -->
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden service-card">
-                    <img src="Residential%20Apartment%20Buildings.webp" onerror="this.onerror=null; this.src='https://placehold.co/600x300/a0a0a0/555555?text=Residential+Apartment+Building';"
-                    alt="Modern multi-unit residential apartment building." class="w-full h-48 object-cover">
+                    <!-- Image source is URL encoded for spaces (corrected path for uploaded file) -->
+                    <img src="Residential%20Apartment%20Buildings.webp" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x300/a0a0a0/555555?text=Residential+Apartment+Building';" 
+                         alt="Modern multi-unit residential apartment building." 
+                         class="w-full h-48 object-cover">
+                    
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Multi-Unit Residential (Class 2 & 3) HVAC Systems</h3>
                         <p class="text-gray-600 mb-4 text-sm">Mechanical Services design for multi-unit residential buildings, including Multi-level car park Ventilation Systems, Stair pressurisation systems, Relief Air Systems, Lift Shaft Pressurisation & Ventilation Systems, and communal plant efficiency.</p>
@@ -369,9 +374,13 @@
                         <span class="inline-block bg-gray-300 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">Co2 Control</span>
                     </div>
                 </div>
-                </div>
+                <!-- END NEW PROJECT CARD -->
+
+            </div>
             <div class="text-center mt-12">
-                <a href="#contact" class="text-saffron font-bold hover-text-saffron transition duration-150 border-2 border-saffron px-8 py-3 rounded-xl inline-block shadow-md hover:shadow-lg"> View Our Full Capability Statement </a>
+                <a href="#contact" class="text-saffron font-bold hover-text-saffron transition duration-150 border-2 border-saffron px-8 py-3 rounded-xl inline-block shadow-md hover:shadow-lg">
+                    View Our Full Capability Statement
+                </a>
             </div>
         </div>
     </section>
@@ -454,7 +463,7 @@
                 
                 <!-- New Row for International Projects -->
                 <div class="lg:col-span-3 mt-8 pt-8 border-t border-gray-300">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">International HVAC Industry Experience</h3>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">International Mechanical Experience</h3>
                     <p class="text-lg text-gray-700 mb-6">
                         Our mechanical expertise is built on nearly 20 years of delivering large-scale, complex projects across the Middle East and Asia, bringing a global perspective to our local compliance work. Key international experience includes:
                     </p>
@@ -520,7 +529,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Functional Contact Form (using FormSubmit) -->
             <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
             <div id="form-message-container" class="mb-4"></div>
@@ -563,224 +572,22 @@
             </form>
         </div>
     </section>
-    
-    <section id="hvac-news" class="py-16 md:py-24 bg-gray-100">
-        <div class="container mx-auto px-4 max-w-7xl">
-            <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 border-b pb-4 border-gray-300">
-                <h2 class="section-header text-4xl font-extrabold text-gray-900 mb-0">
-                    Industry Codes & Standards Tracker
-                </h2>
-                <span id="news-updated" class="text-sm text-gray-500 font-semibold mt-4 md:mt-0 mb-2"></span>
-            </div>
-            
-            <p class="text-lg text-gray-700 mb-8 max-w-4xl">
-                Stay current with critical changes to Australian Standards (like **AS1668-2024**), the **National Construction Code (NCC-BCA)**, and updates from bodies like ABCB, AIRAH, and Engineers Australia. Our team constantly monitors these changes to ensure your project's compliance is engineered from day one.
-            </p>
 
-            <div id="news-filters" class="flex flex-wrap gap-3 mb-8">
-                </div>
-
-            <div id="news-loader" class="text-center p-8 text-xl text-saffron font-bold">
-                Loading latest industry news...
-            </div>
-            
-            <div id="no-results" class="hidden text-center p-8 text-xl text-gray-500 font-semibold">
-                No news items found for the selected filter.
-            </div>
-
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style="display:none;">
-                </div>
-        </div>
-    </section>
-
+    <!-- Footer (Darker Grey) -->
     <footer class="bg-gray-700 text-white py-8">
         <div class="container mx-auto px-4 text-center">
             <div class="mb-4 space-x-6 text-sm">
                 <a href="#services" class="hover-text-saffron">Our Services</a>
                 <a href="#projects" class="hover-text-saffron">Projects</a>
                 <a href="#expertise" class="hover-text-saffron">Our People & Expertise</a>
-                <a href="#hvac-news" class="hover-text-saffron">Industry News</a>
                 <a href="#contact" class="hover-text-saffron">Contact</a>
             </div>
-            <p class="text-gray-400 text-sm">© 2025 Oppili Engineering. All Rights Reserved. | NSW Registered Design Practitioner & Certifier.</p>
+            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
+            <p class="text-xs text-gray-400">
+                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
+            </p>
         </div>
     </footer>
-    
-    <script>
-        // NOTE: In a production environment, this data structure should be fetched 
-        // from a server-side API (e.g., Node.js, Python backend) that automatically 
-        // scrapes/updates news monthly from the requested sources (ABCB, AIRAH, etc.).
-        
-        // --- PLACEHOLDER DATA (Simulates a real API response) ---
-        const hvacNewsData = {
-            // This date simulates the last time your server fetched new data.
-            lastUpdated: "2025-12-05T10:00:00Z", 
-            news: [
-                {
-                    sourceKey: "standards",
-                    source: "Australian Standards",
-                    title: "Major Revisions to AS 1668.1: The 2024 Update is Here",
-                    summary: "AS 1668.1: The use of ventilation and air conditioning in buildings – Fire and smoke control has been revised, introducing new requirements for fan motor protection, control system redundancy, and smoke exhaust system commissioning.",
-                    url: "https://www.standards.org.au/news/as1668-2024-update",
-                    date: "2025-11-28", 
-                    tags: ["AS1668", "Fire Control", "Ventilation"]
-                },
-                {
-                    sourceKey: "abcb",
-                    source: "ABCB (NCC)",
-                    title: "NCC 2025 Consultation: Focus on HVAC Energy Efficiency and Volume One Changes",
-                    summary: "The Australian Building Codes Board (ABCB) has opened consultation for changes planned for NCC 2025, including potential increases to Section J requirements (J1V3) and a push towards mandatory embodied carbon reporting for large commercial projects.",
-                    url: "https://abcb.gov.au/consultation/ncc-2025-hvac",
-                    date: "2025-10-15",
-                    tags: ["NCC", "Section J", "Energy Efficiency"]
-                },
-                {
-                    sourceKey: "airah",
-                    source: "AIRAH",
-                    title: "New Guidelines for Indoor Air Quality (IAQ) in Schools and Offices",
-                    summary: "AIRAH has released a position paper advocating for stricter minimum fresh air rates, especially post-pandemic, which may influence future revisions of AS 1668.2 (Ventilation and air-conditioning in buildings).",
-                    url: "https://www.airah.org.au/resources/iaq-guidelines",
-                    date: "2025-09-01",
-                    tags: ["AIRAH", "IAQ", "Ventilation"]
-                },
-                {
-                    sourceKey: "engineers",
-                    source: "Engineers Australia",
-                    title: "Professional Engineer Registration Mandatory in More States: Impact on HVAC Certification",
-                    summary: "Engineers Australia confirms that the Professional Engineer Registration scheme is expanding beyond NSW and VIC, meaning more rigorous compliance pathways for HVAC Design Practitioners across the country.",
-                    url: "https://www.engineersaustralia.org.au/news/registration-update",
-                    date: "2025-08-20",
-                    tags: ["Registration", "Compliance", "Regulation"]
-                },
-                {
-                    sourceKey: "green",
-                    source: "GBCA",
-                    title: "Green Star Updates: Incentives for Low-GWP Refrigerants in HVAC",
-                    summary: "The Green Building Council of Australia (GBCA) has updated its Green Star rating tools to provide additional credits for projects that specify low Global Warming Potential (GWP) refrigerants, pushing the industry toward more sustainable plant options.",
-                    url: "https://new.gbca.org.au/news/low-gwp-hvac-incentives",
-                    date: "2025-07-10",
-                    tags: ["Sustainability", "Refrigerants", "Green Star"]
-                }
-            ].sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort by newest first
-        };
 
-        // --- Core News Logic ---
-
-        function getSourceLabel(key) {
-            switch (key) {
-                case 'standards': return 'Australian Standards';
-                case 'abcb': return 'ABCB (NCC)';
-                case 'airah': return 'AIRAH';
-                case 'engineers': return 'Engineers Australia';
-                case 'green': return 'GBCA (Green Star)';
-                case 'all': return 'All Updates';
-                default: return 'Industry Update';
-            }
-        }
-
-        function renderNews(newsItems) {
-            const grid = document.getElementById("news-grid");
-            const noResults = document.getElementById("no-results");
-            grid.innerHTML = "";
-            
-            if (newsItems.length === 0) {
-                noResults.style.display = 'block';
-                grid.style.display = 'none';
-                return;
-            }
-
-            noResults.style.display = 'none';
-
-            newsItems.forEach(item => {
-                const card = document.createElement("article");
-                // Uses existing .service-card styles for hover effect
-                card.className = "p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between bg-white service-card";
-                
-                // Format the date
-                const dateStr = item.date ? new Date(item.date).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' }) : "No Date";
-
-                // Create tags HTML
-                const tagsHtml = (item.tags || [])
-                    .map(tag => `<span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full mr-2 mb-1">${tag}</span>`)
-                    .join('');
-
-                card.innerHTML = `
-                    <div>
-                        <div class="text-saffron text-sm font-bold uppercase mb-2">${item.source}</div>
-                        <h3 class="text-xl font-extrabold text-gray-900 mb-3 leading-snug">
-                            <a href="${item.url}" target="_blank" class="hover:text-saffron transition-colors duration-200">${item.title}</a>
-                        </h3>
-                        <p class="text-gray-600 mb-4 text-base">${item.summary}</p>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 mb-3">Published: ${dateStr}</div>
-                        <div class="flex flex-wrap">${tagsHtml}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            grid.style.display = "grid";
-        }
-
-        function setupFilters() {
-            const filtersContainer = document.getElementById("news-filters");
-            // Get unique source keys, including 'all'
-            const allSources = ['all', ...new Set(hvacNewsData.news.map(item => item.sourceKey))];
-            
-            // Generate and attach filter buttons
-            allSources.forEach(sourceKey => {
-                const button = document.createElement('button');
-                button.textContent = getSourceLabel(sourceKey);
-                button.dataset.filter = sourceKey;
-                button.className = 'filter-btn';
-                if (sourceKey === 'all') {
-                    button.classList.add('active', 'bg-saffron', 'text-white');
-                }
-                filtersContainer.appendChild(button);
-            });
-
-            filtersContainer.addEventListener('click', (event) => {
-                const target = event.target;
-                if (target.matches('.filter-btn')) {
-                    const filterValue = target.dataset.filter;
-                    
-                    // Update active button state
-                    filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.classList.remove('active', 'bg-saffron', 'text-white');
-                    });
-                    target.classList.add('active', 'bg-saffron', 'text-white');
-
-                    filterNews(filterValue);
-                }
-            });
-        }
-
-        function filterNews(filterKey) {
-            const filtered = filterKey === 'all' 
-                ? hvacNewsData.news 
-                : hvacNewsData.news.filter(item => item.sourceKey === filterKey);
-            renderNews(filtered);
-        }
-
-        function loadNews() {
-            const loader = document.getElementById("news-loader");
-            const updatedDisplay = document.getElementById("news-updated");
-            
-            // Hide loader
-            loader.style.display = 'none';
-
-            // Display last updated time
-            const updateDate = new Date(hvacNewsData.lastUpdated);
-            updatedDisplay.textContent = `(Data fetched: ${updateDate.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })})`;
-            
-            // Initial render (shows all)
-            setupFilters();
-            renderNews(hvacNewsData.news);
-        }
-
-        // Call loadNews when the page is ready
-        document.addEventListener('DOMContentLoaded', loadNews);
-    </script>
-    
 </body>
 </html>
