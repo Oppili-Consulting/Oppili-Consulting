@@ -528,20 +528,22 @@
                         <a href="mailto:venkat.n@oppiliengg.com.au" class="hover-text-saffron transition duration-150 font-semibold">venkat.n@oppiliengg.com.au</a>
                     </div>
                 </div>
+                <!-- Firebase Status Indicator -->
+                <div id="firebase-status" class="mt-4">
+                    <div class="mt-4 p-3 bg-gray-500 text-white rounded-lg">
+                        Connecting to secure database...
+                    </div>
+                </div>
             </div>
             
             <p class="text-lg mb-6 p-4 bg-gray-700 rounded-xl border-l-4 border-white">
-                Use the form below to send your detailed enquiry. **The form will work automatically once you confirm your email via the FormSubmit activation link.**
+                Use the form below. Your message will be securely saved in the database immediately upon submission.
             </p>
 
-            <!-- FormSubmit Form -->
-            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" class="space-y-6">
+            <!-- Firebase Form -->
+            <form id="contactForm" onsubmit="submitForm(event)" class="space-y-6">
                 
-                <!-- REQUIRED: Successful Submission Redirect (sends user back to the top of the contact section) -->
-                <input type="hidden" name="_next" value="#contact">
-                
-                <!-- REQUIRED: Honeypot for spam protection (must be empty on submission) -->
-                <input type="text" name="_honeypot" style="display:none;" tabindex="-1">
+                <div id="form-status-message" role="alert" class="hidden p-4 rounded-lg font-bold"></div>
 
                 <div>
                     <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
@@ -557,8 +559,7 @@
                 </div>
                 <div>
                     <label for="subject" class="block text-sm font-medium mb-1">Project Subject (e.g., Section J Audit)</label>
-                    <!-- FormSubmit automatically uses a field named _subject as the email subject -->
-                    <input type="text" id="subject" name="_subject" required
+                    <input type="text" id="subject" name="Subject" required
                         class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="New Commercial Tower HVAC Design">
                 </div>
@@ -569,7 +570,7 @@
                         placeholder="Briefly describe the project location, building classification, required mechanical/HVAC services, and key compliance challenges..."></textarea>
                 </div>
                 <div class="text-center md:text-left">
-                    <button type="submit"
+                    <button type="submit" id="submitButton"
                         class="submit-button w-full md:w-auto">
                         Submit Enquiry
                     </button>
@@ -595,5 +596,114 @@
         </div>
     </footer>
 
+        <!-- Firebase Script Initialization -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, collection, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables available in this scope
+        let app, db, auth, userId;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        // Global function exposed to the window for form submission
+        window.submitForm = async function(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('contactForm');
+            const statusMessage = document.getElementById('form-status-message');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!db || !auth.currentUser) {
+                console.error("Database not initialized or user not authenticated.");
+                statusMessage.textContent = "Error: Database not ready. Please try again in a moment.";
+                statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                statusMessage.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
+
+            statusMessage.classList.remove('hidden', 'bg-red-100', 'bg-green-100', 'text-red-800', 'text-green-800');
+            statusMessage.classList.add('bg-yellow-100', 'text-yellow-800');
+            statusMessage.textContent = "Submitting enquiry...";
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+            const submissionData = {
+                Name: formData.get('Name'),
+                Email: formData.get('Email'),
+                Subject: formData.get('Subject'),
+                Details: formData.get('Details'),
+                timestamp: new Date().toISOString(),
+                clientUserId: userId // To link the anonymous user session
+            };
+            
+            const contactCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'contact_submissions');
+
+            try {
+                // Add the document to the database
+                await addDoc(contactCollectionRef, submissionData);
+
+                statusMessage.classList.remove('bg-yellow-100', 'text-yellow-800');
+                statusMessage.classList.add('bg-green-100', 'text-green-800');
+                statusMessage.textContent = "Success! Your enquiry has been received and saved securely in our system. We will contact you shortly.";
+                form.reset(); // Clear the form on success
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                statusMessage.classList.remove('bg-yellow-100', 'text-yellow-800');
+                statusMessage.classList.add('bg-red-100', 'text-red-800');
+                statusMessage.textContent = `Error: Could not save message. Please try the direct email address.`;
+            } finally {
+                submitButton.disabled = false;
+            }
+        };
+
+        async function initializeFirebase() {
+            try {
+                if (!firebaseConfig || !firebaseConfig.apiKey) {
+                    console.error("Firebase config is missing or invalid.");
+                    document.getElementById('firebase-status').innerHTML = `
+                        <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg">
+                            Database Error: Configuration missing. Submissions will not be saved.
+                        </div>`;
+                    return;
+                }
+                
+                // Initialize services
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Set persistence and enable debug logging
+                await setPersistence(auth, browserSessionPersistence);
+                setLogLevel('error'); // Set error to avoid overwhelming console with debug messages during normal use
+
+                // Sign in using the custom token or anonymously
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                userId = auth.currentUser?.uid || 'anonymous-user';
+                
+                document.getElementById('firebase-status').innerHTML = `
+                    <div class="mt-4 p-3 bg-green-100 text-green-800 rounded-lg">
+                        ✅ Database Connection Active. Your User ID: <span class="font-mono text-xs">${userId}</span>
+                    </div>`;
+
+            } catch (e) {
+                console.error("Firebase initialization or sign-in failed:", e);
+                document.getElementById('firebase-status').innerHTML = `
+                    <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg">
+                        ❌ Database Error: Could not establish connection. Please contact directly.
+                    </div>`;
+            }
+        }
+
+        // Start initialization when the window loads
+        window.onload = initializeFirebase;
+    </script>
+    
 </body>
 </html>
