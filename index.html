@@ -515,15 +515,9 @@
                 Contact our Senior Mechanical engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
             </p>
             
-            <!-- !!! IMPORTANT ACTIVATION WARNING !!! -->
-            <div class="bg-yellow-100 text-gray-800 p-4 rounded-xl mb-6 shadow-lg border-l-4 border-yellow-500 font-semibold">
-                <p class="font-bold text-red-600 mb-1">🛠️ Form Activation Required!</p>
-                <p class="text-sm">If you are not receiving emails, please check the inbox for <strong class="underline">venkat.n@oppiliengg.com.au</strong> for a "Confirm your email address" message sent by FormSubmit. You must click the activation link in that email after the first test submission for the form to work permanently.</p>
-            </div>
-
             <!-- Direct Contact Info Block -->
             <div class="bg-gray-700 p-6 rounded-xl shadow-2xl mb-10 border-l-4 border-saffron">
-                <h3 class="text-2xl font-bold mb-4">Direct Contact</h3>
+                <h3 class="text-2xl font-bold mb-4">Direct Contact Information</h3>
                 <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-lg">
                     <div class="flex items-center">
                         <svg class="w-6 h-6 mr-3 text-saffron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
@@ -536,49 +530,70 @@
                 </div>
             </div>
             
-            <!-- Functional Contact Form (using FormSubmit) -->
-            <div id="form-message-container" class="mb-4"></div>
-            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
-                <!-- Honey pot to catch spam -->
-                <input type="text" name="_honey" style="display:none">
-                <!-- Use a confirmation message instead of redirecting -->
-                <input type="hidden" name="_confirmation" value="Your enquiry has been received. We will be in touch shortly.">
-                <!-- Disable Captcha (optional but useful for testing) -->
-                <input type="hidden" name="_captcha" value="false">
+            <p class="text-lg mb-6 p-4 bg-gray-700 rounded-xl border-l-4 border-white">
+                Use the form below to send your detailed enquiry. **The form will work automatically once you confirm your email via the FormSubmit activation link.**
+            </p>
+
+            <!-- FormSubmit Form -->
+            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" class="space-y-6">
+                
+                <!-- REQUIRED: Successful Submission Redirect (sends user back to the top of the contact section) -->
+                <input type="hidden" name="_next" value="#contact">
+                
+                <!-- REQUIRED: Honeypot for spam protection (must be empty on submission) -->
+                <input type="text" name="_honeypot" style="display:none;" tabindex="-1">
 
                 <div>
                     <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
-                    <input type="text" id="name" name="name" required
+                    <input type="text" id="name" name="Name" required
                         class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="Project Lead / Architect">
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium mb-1">Work Email</label>
-                    <input type="email" id="email" name="email" required
+                    <label for="email" class="block text-sm font-medium mb-1">Your Email (for response)</label>
+                    <input type="email" id="email" name="Email" required
                         class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="project@firmname.com.au">
                 </div>
                 <div>
                     <label for="subject" class="block text-sm font-medium mb-1">Project Subject (e.g., Section J Audit)</label>
+                    <!-- FormSubmit automatically uses a field named _subject as the email subject -->
                     <input type="text" id="subject" name="_subject" required
                         class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="New Commercial Tower HVAC Design">
                 </div>
                 <div>
                     <label for="message" class="block text-sm font-medium mb-1">Project Details</label>
-                    <textarea id="message" name="message" rows="4" required
+                    <textarea id="message" name="Details" rows="4" required
                         class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="Briefly describe the project location, building classification, required mechanical/HVAC services, and key compliance challenges..."></textarea>
                 </div>
                 <div class="text-center md:text-left">
                     <button type="submit"
-                        class="w-full md:w-auto bg-white text-saffron font-bold px-10 py-4 rounded-xl shadow-xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        class="submit-button w-full md:w-auto">
                         Submit Enquiry
                     </button>
                 </div>
             </form>
         </div>
     </section>
+
+    <!-- Footer (Darker Grey) -->
+    <footer class="bg-gray-700 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4 space-x-6 text-sm">
+                <a href="#services" class="hover-text-saffron">Our Services</a>
+                <a href="#projects" class="hover-text-saffron">Projects</a>
+                <a href="#testimonials" class="hover-text-saffron">Testimonials</a>
+                <a href="#expertise" class="hover-text-saffron">Our People & Expertise</a>
+                <a href="#contact" class="hover-text-saffron">Contact</a>
+            </div>
+            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
+            <p class="text-xs text-gray-400">
+                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
