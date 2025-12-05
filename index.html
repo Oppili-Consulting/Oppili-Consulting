@@ -154,6 +154,7 @@
                 <a href="#services" class="text-gray-600 nav-link">Our Services</a>
                 <a href="#projects" class="text-gray-600 nav-link">Projects</a>
                 <a href="#expertise" class="text-gray-600 nav-link">Our People & Expertise</a>
+                <a href="#news" class="mx-3 hover-text-saffron transition duration-300">Industry News</a>
                 <a href="#contact" class="text-gray-600 nav-link">Contact</a>
             </div>
             
@@ -505,6 +506,300 @@
         </div>
     </section>
 
+        <!-- Dynamic News Section - NEW -->
+    <section id="news" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h3 class="section-header text-4xl text-center mb-12">INDUSTRY NEWS & INSIGHTS</h3>
+            <div id="news-container" class="grid md:grid-cols-3 gap-8">
+                <!-- News items will be dynamically injected here -->
+                <div class="md:col-span-3 text-center py-10" id="news-loading-state">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 inline-block"></div>
+                    <p class="text-lg text-gray-600">Fetching latest industry updates...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Firebase and Dynamic Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables for Firebase and App ID
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        const NEWS_COLLECTION_PATH = `artifacts/${appId}/public/data/news_updates`;
+        const NEWS_DOC_ID = 'latest_news';
+        // Note: API_URL is used without an API key string, relying on the environment to inject it.
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=`;
+
+        // Utility function for showing temporary messages (replaces alert/confirm)
+        function showMessage(text, type = 'info') {
+            const box = document.getElementById('message-box');
+            box.textContent = text;
+            box.className = 'fixed bottom-5 right-5 p-4 rounded-lg shadow-xl hidden transition-opacity duration-300 opacity-0 max-w-sm'; // Reset classes
+
+            if (type === 'success') {
+                box.classList.add('bg-green-500', 'text-white');
+            } else if (type === 'error') {
+                box.classList.add('bg-red-500', 'text-white');
+            } else {
+                box.classList.add('bg-blue-500', 'text-white');
+            }
+
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('opacity-100'), 10);
+            setTimeout(() => {
+                box.classList.remove('opacity-100');
+                setTimeout(() => box.classList.add('hidden'), 300);
+            }, 5000);
+        }
+
+        // --- Firebase Initialization and Auth ---
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                await loadNews();
+            } catch (error) {
+                console.error("Firebase initialization or authentication failed:", error);
+                showMessage("Database connection failed. Displaying fallback news.", 'error');
+                renderFallbackNews();
+            }
+        }
+
+        // --- News Logic ---
+
+        function getCurrentCacheKey() {
+            // CRITICAL CHANGE: Use current year and month (YYYY-MM) as the cache key to ensure monthly refresh
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            return `${year}-${month}`; 
+        }
+
+        function renderFallbackNews() {
+            // Static fallback news focused on compliance and standards
+            const fallbackNews = [
+                { 
+                    title: 'AS1668-2024 Revisions: Impact on Ventilation Design', 
+                    snippet: 'The new standard introduces updated requirements for kitchen exhaust systems and car park ventilation, demanding changes in design documentation and commissioning protocols.', 
+                    source: 'Standards Australia', 
+                    uri: 'https://www.google.com/search?q=AS1668-2024+changes+ventilation' 
+                },
+                { 
+                    title: 'Upcoming NCC Energy Efficiency Uplift (Section J)', 
+                    snippet: 'Anticipate stricter thermal performance targets and new requirements for high-efficiency plant equipment in the next National Construction Code update, driving demand for simulation expertise.', 
+                    source: 'ABCB Compliance', 
+                    uri: 'https://www.google.com/search?q=NCC+Section+J+Energy+Efficiency+Uplift' 
+                },
+                { 
+                    title: 'Low GWP Refrigerants Mandate: A Phase-Out Guide', 
+                    snippet: 'The accelerated phase-down of high Global Warming Potential (GWP) refrigerants is forcing all HVAC designers to transition to low-GWP alternatives like R32 and R290. Know the deadlines.', 
+                    source: 'Industry Regulation Alert', 
+                    uri: 'https://www.google.com/search?q=Australia+Low+GWP+refrigerants+phase+out' 
+                },
+            ];
+            renderNews(fallbackNews);
+        }
+
+        function renderNews(newsItems) {
+            const container = document.getElementById('news-container');
+            container.innerHTML = ''; // Clear loading state
+
+            if (newsItems.length === 0) {
+                container.innerHTML = `<p class="md:col-span-3 text-center py-10 text-gray-600">No industry news available at this time. Please check back later.</p>`;
+                return;
+            }
+
+            const today = new Date().toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' });
+
+            newsItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                
+                // Construct the dynamic Google Search link as the ultimate fallback
+                const encodedTitle = encodeURIComponent(item.title + " HVAC design Australia"); // Add context to search
+                const searchLink = `https://www.google.com/search?q=${encodedTitle}`;
+
+                // Validate URI: Must exist AND start with http/https
+                const linkUri = (item.uri && (item.uri.startsWith('http://') || item.uri.startsWith('https://'))) ? item.uri : searchLink;
+
+                card.innerHTML = `
+                    <h4 class="text-2xl font-bold mb-3 text-saffron">${item.title}</h4>
+                    <p class="text-sm text-gray-500 mb-4">${item.source} - ${today}</p>
+                    <p class="text-gray-600 mb-4 flex-grow">${item.snippet}</p>
+                    <a href="${linkUri}" target="_blank" rel="noopener noreferrer" class="text-gray-800 font-semibold mt-auto hover-text-saffron transition duration-300 self-start">
+                        Read More &rarr;
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function makeApiCall(query, retries = 3) {
+            // Updated system prompt to target specific Australian sources and codes
+            const systemPrompt = "You are a news summarization bot for a specialist mechanical engineering firm. Summarize the 3 most recent and highly relevant Australian news items concerning updates to AS1668, the NCC/BCA, or mandatory compliance and standards for the HVAC design industry. The news should come from different sources if possible. Keep the snippet under 50 words.";
+
+            const payload = {
+                contents: [{ parts: [{ text: query }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                "title": { "type": "STRING" },
+                                "snippet": { "type": "STRING" },
+                                "sourceName": { "type": "STRING", "description": "A placeholder source name like 'Standards Australia' or 'ABCB Compliance'." }
+                            },
+                            required: ["title", "snippet", "sourceName"]
+                        }
+                    }
+                }
+            };
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        console.warn(`API call failed with status ${response.status} on attempt ${i + 1}.`);
+                        throw new Error(`API status error: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const jsonText = candidate.content.parts[0].text;
+                        const newsSummaries = JSON.parse(jsonText);
+
+                        let sources = [];
+                        const groundingMetadata = candidate.groundingMetadata;
+                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                            sources = groundingMetadata.groundingAttributions
+                                .map(attr => ({ uri: attr.web?.uri, title: attr.web?.title }))
+                                .filter(source => source.uri && source.title && (source.uri.startsWith('http://') || source.uri.startsWith('https://')));
+                        }
+
+                        // Combine summaries with available grounding sources.
+                        const finalNews = newsSummaries.map((item, index) => {
+                            const source = sources[index] || {};
+                            return {
+                                title: item.title,
+                                snippet: item.snippet,
+                                // Use the grounding source title if available
+                                source: source.title || item.sourceName,
+                                // Use the grounding URI if valid, otherwise it defaults to '#'
+                                uri: source.uri || '#' 
+                            };
+                        });
+                        return finalNews;
+                    }
+                    throw new Error("Invalid response structure from API.");
+
+                } catch (error) {
+                    if (i < retries - 1) {
+                        const delay = Math.pow(2, i) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    } else {
+                        throw new Error("Failed to fetch content after multiple retries.");
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        async function fetchAndStoreNews() {
+            const cacheKey = getCurrentCacheKey();
+            try {
+                // 1. Fetch from API with sources specified for relevance
+                const query = "Find 3 distinct, recent, and highly relevant news stories from sources like ABCB, AIRAH, Australian Standards, Engineers Australia, or the Green Building Council, focusing on Australian HVAC, mechanical compliance, AS1668-2024, and NCC-BCA updates.";
+                const newsItems = await makeApiCall(query);
+                
+                if (newsItems) {
+                    // 2. Store in Firestore, using the monthly cache key
+                    const newsDocRef = doc(db, NEWS_COLLECTION_PATH, NEWS_DOC_ID);
+                    await setDoc(newsDocRef, {
+                        lastUpdated: new Date().toISOString(),
+                        cacheKey: cacheKey, // YYYY-MM ensures refresh only once per month
+                        newsItems: newsItems
+                    });
+                    return newsItems;
+                }
+                return null; 
+
+            } catch (error) {
+                console.error("Error fetching or storing news (API failed to respond successfully):", error);
+                showMessage("Could not fetch real-time news. Displaying relevant compliance insights.", 'error');
+                return null;
+            }
+        }
+
+        async function loadNews() {
+            const currentCacheKey = getCurrentCacheKey();
+            let newsItems = null;
+            const newsDocRef = doc(db, NEWS_COLLECTION_PATH, NEWS_DOC_ID);
+
+            try {
+                // 1. Check Cache
+                const docSnap = await getDoc(newsDocRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Check if the cached news is from the current month (i.e., cacheKey matches YYYY-MM)
+                    if (data.cacheKey === currentCacheKey) { 
+                        console.log("Loading news from monthly cache.");
+                        newsItems = data.newsItems;
+                    }
+                }
+
+                // 2. Fetch if Cache Miss or Expired (i.e., new month)
+                if (!newsItems) {
+                    console.log(`Cache expired or miss. Forcing new API call for month: ${currentCacheKey}.`);
+                    newsItems = await fetchAndStoreNews();
+                }
+
+                // 3. Render
+                if (newsItems && newsItems.length > 0) {
+                    renderNews(newsItems);
+                } else {
+                    // If API call fails or returns empty data, fall back
+                    console.log("API returned no content or failed. Rendering fallback news.");
+                    renderFallbackNews();
+                }
+
+            } catch (e) {
+                console.error("Critical error during news loading process:", e);
+                // Final fallback to static news if everything fails
+                renderFallbackNews();
+            }
+        }
+
+        // Start the process
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
+    </script>
+    
     <!-- Contact Section (Dark Grey background, Accent buttons) -->
     <section id="contact" class="py-16 md:py-24 bg-gray-600 text-white">
         <div class="container mx-auto px-4 max-w-3xl">
