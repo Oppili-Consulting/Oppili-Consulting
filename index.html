@@ -594,5 +594,45 @@
         </div>
     </footer>
 
+        <!-- JavaScript for Form Submission Handling -->
+    <script>
+        // Function to handle form submission
+        function handleFormSubmission(event) {
+            event.preventDefault(); // Stop the default form submission (page reload)
+
+            const form = document.getElementById('contact-form');
+            const statusMessage = document.getElementById('form-status-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            // 1. Show loading state
+            statusMessage.textContent = 'Submitting enquiry...';
+            statusMessage.className = 'p-4 rounded-xl mb-6 font-semibold text-gray-900 bg-yellow-300 block text-center';
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Processing...';
+
+            // 2. Gather form data (for potential real use)
+            const formData = {
+                name: form.querySelector('[name="full_name"]').value,
+                email: form.querySelector('[name="email"]').value,
+                phone: form.querySelector('[name="phone"]').value,
+                project_description: form.querySelector('[name="project_description"]').value
+            };
+
+            // 3. Simulate API call (In a real application, replace this setTimeout with a 'fetch' call to your server)
+            setTimeout(() => {
+                // Success simulation
+                console.log("Form Data Sent:", formData);
+
+                statusMessage.textContent = 'Thank you! Your enquiry has been successfully submitted. We will be in touch shortly.';
+                statusMessage.className = 'p-4 rounded-xl mb-6 font-semibold text-white bg-green-600 block text-center';
+
+                // Reset form and button state
+                form.reset();
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Submit Enquiry';
+
+            }, 2000); // 2 second delay to simulate network latency
+        }
+    </script>
 </body>
 </html>
