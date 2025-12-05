@@ -154,7 +154,7 @@
                 <a href="#services" class="text-gray-600 nav-link">Our Services</a>
                 <a href="#projects" class="text-gray-600 nav-link">Projects</a>
                 <a href="#expertise" class="text-gray-600 nav-link">Our People & Expertise</a>
-                <a href="#news" class="text-gray-600 nav-link">Industry News</a>
+                <a href="#hvac-news" class="text-gray-600 nav-link">Industry News</a>
                 <a href="#contact" class="text-gray-600 nav-link">Contact</a>
             </div>
             
@@ -170,7 +170,6 @@
                 <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Our Services</a>
                 <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Projects</a>
                 <a href="#expertise" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Our People & Expertise</a>
-                <a href="#news" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover-text-saffron">Industry News</a>
                 <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-saffron mt-1 shadow-md">Contact Us</a>
             </div>
         </div>
@@ -507,300 +506,6 @@
         </div>
     </section>
 
-        <!-- Dynamic News Section - NEW -->
-    <section id="news" class="py-16 md:py-24 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h3 class="section-header text-4xl text-center mb-12">INDUSTRY NEWS & INSIGHTS</h3>
-            <div id="news-container" class="grid md:grid-cols-3 gap-8">
-                <!-- News items will be dynamically injected here -->
-                <div class="md:col-span-3 text-center py-10" id="news-loading-state">
-                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4 inline-block"></div>
-                    <p class="text-lg text-gray-600">Fetching latest industry updates...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <!-- Firebase and Dynamic Logic Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global variables for Firebase and App ID
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db;
-        let auth;
-        const NEWS_COLLECTION_PATH = `artifacts/${appId}/public/data/news_updates`;
-        const NEWS_DOC_ID = 'latest_news';
-        // Note: API_URL is used without an API key string, relying on the environment to inject it.
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=`;
-
-        // Utility function for showing temporary messages (replaces alert/confirm)
-        function showMessage(text, type = 'info') {
-            const box = document.getElementById('message-box');
-            box.textContent = text;
-            box.className = 'fixed bottom-5 right-5 p-4 rounded-lg shadow-xl hidden transition-opacity duration-300 opacity-0 max-w-sm'; // Reset classes
-
-            if (type === 'success') {
-                box.classList.add('bg-green-500', 'text-white');
-            } else if (type === 'error') {
-                box.classList.add('bg-red-500', 'text-white');
-            } else {
-                box.classList.add('bg-blue-500', 'text-white');
-            }
-
-            box.classList.remove('hidden');
-            setTimeout(() => box.classList.add('opacity-100'), 10);
-            setTimeout(() => {
-                box.classList.remove('opacity-100');
-                setTimeout(() => box.classList.add('hidden'), 300);
-            }, 5000);
-        }
-
-        // --- Firebase Initialization and Auth ---
-        async function initializeFirebase() {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                await loadNews();
-            } catch (error) {
-                console.error("Firebase initialization or authentication failed:", error);
-                showMessage("Database connection failed. Displaying fallback news.", 'error');
-                renderFallbackNews();
-            }
-        }
-
-        // --- News Logic ---
-
-        function getCurrentCacheKey() {
-            // CRITICAL CHANGE: Use current year and month (YYYY-MM) as the cache key to ensure monthly refresh
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            return `${year}-${month}`; 
-        }
-
-        function renderFallbackNews() {
-            // Static fallback news focused on compliance and standards
-            const fallbackNews = [
-                { 
-                    title: 'AS1668-2024 Revisions: Impact on Ventilation Design', 
-                    snippet: 'The new standard introduces updated requirements for kitchen exhaust systems and car park ventilation, demanding changes in design documentation and commissioning protocols.', 
-                    source: 'Standards Australia', 
-                    uri: 'https://www.google.com/search?q=AS1668-2024+changes+ventilation' 
-                },
-                { 
-                    title: 'Upcoming NCC Energy Efficiency Uplift (Section J)', 
-                    snippet: 'Anticipate stricter thermal performance targets and new requirements for high-efficiency plant equipment in the next National Construction Code update, driving demand for simulation expertise.', 
-                    source: 'ABCB Compliance', 
-                    uri: 'https://www.google.com/search?q=NCC+Section+J+Energy+Efficiency+Uplift' 
-                },
-                { 
-                    title: 'Low GWP Refrigerants Mandate: A Phase-Out Guide', 
-                    snippet: 'The accelerated phase-down of high Global Warming Potential (GWP) refrigerants is forcing all HVAC designers to transition to low-GWP alternatives like R32 and R290. Know the deadlines.', 
-                    source: 'Industry Regulation Alert', 
-                    uri: 'https://www.google.com/search?q=Australia+Low+GWP+refrigerants+phase+out' 
-                },
-            ];
-            renderNews(fallbackNews);
-        }
-
-        function renderNews(newsItems) {
-            const container = document.getElementById('news-container');
-            container.innerHTML = ''; // Clear loading state
-
-            if (newsItems.length === 0) {
-                container.innerHTML = `<p class="md:col-span-3 text-center py-10 text-gray-600">No industry news available at this time. Please check back later.</p>`;
-                return;
-            }
-
-            const today = new Date().toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' });
-
-            newsItems.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'news-card';
-                
-                // Construct the dynamic Google Search link as the ultimate fallback
-                const encodedTitle = encodeURIComponent(item.title + " HVAC design Australia"); // Add context to search
-                const searchLink = `https://www.google.com/search?q=${encodedTitle}`;
-
-                // Validate URI: Must exist AND start with http/https
-                const linkUri = (item.uri && (item.uri.startsWith('http://') || item.uri.startsWith('https://'))) ? item.uri : searchLink;
-
-                card.innerHTML = `
-                    <h4 class="text-2xl font-bold mb-3 text-saffron">${item.title}</h4>
-                    <p class="text-sm text-gray-500 mb-4">${item.source} - ${today}</p>
-                    <p class="text-gray-600 mb-4 flex-grow">${item.snippet}</p>
-                    <a href="${linkUri}" target="_blank" rel="noopener noreferrer" class="text-gray-800 font-semibold mt-auto hover-text-saffron transition duration-300 self-start">
-                        Read More &rarr;
-                    </a>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        async function makeApiCall(query, retries = 3) {
-            // Updated system prompt to target specific Australian sources and codes
-            const systemPrompt = "You are a news summarization bot for a specialist mechanical engineering firm. Summarize the 3 most recent and highly relevant Australian news items concerning updates to AS1668, the NCC/BCA, or mandatory compliance and standards for the HVAC design industry. The news should come from different sources if possible. Keep the snippet under 50 words.";
-
-            const payload = {
-                contents: [{ parts: [{ text: query }] }],
-                tools: [{ "google_search": {} }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "ARRAY",
-                        items: {
-                            type: "OBJECT",
-                            properties: {
-                                "title": { "type": "STRING" },
-                                "snippet": { "type": "STRING" },
-                                "sourceName": { "type": "STRING", "description": "A placeholder source name like 'Standards Australia' or 'ABCB Compliance'." }
-                            },
-                            required: ["title", "snippet", "sourceName"]
-                        }
-                    }
-                }
-            };
-
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        console.warn(`API call failed with status ${response.status} on attempt ${i + 1}.`);
-                        throw new Error(`API status error: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    const candidate = result.candidates?.[0];
-
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        const jsonText = candidate.content.parts[0].text;
-                        const newsSummaries = JSON.parse(jsonText);
-
-                        let sources = [];
-                        const groundingMetadata = candidate.groundingMetadata;
-                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
-                            sources = groundingMetadata.groundingAttributions
-                                .map(attr => ({ uri: attr.web?.uri, title: attr.web?.title }))
-                                .filter(source => source.uri && source.title && (source.uri.startsWith('http://') || source.uri.startsWith('https://')));
-                        }
-
-                        // Combine summaries with available grounding sources.
-                        const finalNews = newsSummaries.map((item, index) => {
-                            const source = sources[index] || {};
-                            return {
-                                title: item.title,
-                                snippet: item.snippet,
-                                // Use the grounding source title if available
-                                source: source.title || item.sourceName,
-                                // Use the grounding URI if valid, otherwise it defaults to '#'
-                                uri: source.uri || '#' 
-                            };
-                        });
-                        return finalNews;
-                    }
-                    throw new Error("Invalid response structure from API.");
-
-                } catch (error) {
-                    if (i < retries - 1) {
-                        const delay = Math.pow(2, i) * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    } else {
-                        throw new Error("Failed to fetch content after multiple retries.");
-                    }
-                }
-            }
-            return null;
-        }
-
-
-        async function fetchAndStoreNews() {
-            const cacheKey = getCurrentCacheKey();
-            try {
-                // 1. Fetch from API with sources specified for relevance
-                const query = "Find 3 distinct, recent, and highly relevant news stories from sources like ABCB, AIRAH, Australian Standards, Engineers Australia, or the Green Building Council, focusing on Australian HVAC, mechanical compliance, AS1668-2024, and NCC-BCA updates.";
-                const newsItems = await makeApiCall(query);
-                
-                if (newsItems) {
-                    // 2. Store in Firestore, using the monthly cache key
-                    const newsDocRef = doc(db, NEWS_COLLECTION_PATH, NEWS_DOC_ID);
-                    await setDoc(newsDocRef, {
-                        lastUpdated: new Date().toISOString(),
-                        cacheKey: cacheKey, // YYYY-MM ensures refresh only once per month
-                        newsItems: newsItems
-                    });
-                    return newsItems;
-                }
-                return null; 
-
-            } catch (error) {
-                console.error("Error fetching or storing news (API failed to respond successfully):", error);
-                showMessage("Could not fetch real-time news. Displaying relevant compliance insights.", 'error');
-                return null;
-            }
-        }
-
-        async function loadNews() {
-            const currentCacheKey = getCurrentCacheKey();
-            let newsItems = null;
-            const newsDocRef = doc(db, NEWS_COLLECTION_PATH, NEWS_DOC_ID);
-
-            try {
-                // 1. Check Cache
-                const docSnap = await getDoc(newsDocRef);
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    // Check if the cached news is from the current month (i.e., cacheKey matches YYYY-MM)
-                    if (data.cacheKey === currentCacheKey) { 
-                        console.log("Loading news from monthly cache.");
-                        newsItems = data.newsItems;
-                    }
-                }
-
-                // 2. Fetch if Cache Miss or Expired (i.e., new month)
-                if (!newsItems) {
-                    console.log(`Cache expired or miss. Forcing new API call for month: ${currentCacheKey}.`);
-                    newsItems = await fetchAndStoreNews();
-                }
-
-                // 3. Render
-                if (newsItems && newsItems.length > 0) {
-                    renderNews(newsItems);
-                } else {
-                    // If API call fails or returns empty data, fall back
-                    console.log("API returned no content or failed. Rendering fallback news.");
-                    renderFallbackNews();
-                }
-
-            } catch (e) {
-                console.error("Critical error during news loading process:", e);
-                // Final fallback to static news if everything fails
-                renderFallbackNews();
-            }
-        }
-
-        // Start the process
-        document.addEventListener('DOMContentLoaded', initializeFirebase);
-    </script>
-    
     <!-- Contact Section (Dark Grey background, Accent buttons) -->
     <section id="contact" class="py-16 md:py-24 bg-gray-600 text-white">
         <div class="container mx-auto px-4 max-w-3xl">
@@ -826,11 +531,10 @@
                 </div>
             </div>
             
-            <!-- Functional Contact Form (using FormSubmit - Simplified) -->
-            <!-- The form action is set directly to the FormSubmit URL, relying on native browser submission. -->
-            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" class="space-y-6">
-                <!-- IMPORTANT: FormSubmit requires the hidden _VALIDATE field for better reliability and anti-spam -->
-                <input type="hidden" name="_VALIDATE" value="true">
+            <!-- Functional Contact Form (using FormSubmit) -->
+            <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
+            <div id="form-message-container" class="mb-4"></div>
+            <form action="https://formsubmit.co/YOUR_EMAIL_ADDRESS_HERE" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
                 <!-- Honey pot to catch spam -->
                 <input type="text" name="_honey" style="display:none">
                 <!-- Redirect after success (optional) -->
@@ -867,10 +571,144 @@
                     </button>
                 </div>
             </form>
-            <!-- Removed the custom JavaScript message box element since we are now relying on native FormSubmit redirection/messages -->
         </div>
     </section>
 
+<section class="news" id="hvac-news">
+  <div class="news__header">
+    <h2>Latest HVAC Engineering Standards & Codes</h2>
+    <div class="updated" id="updated"></div>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="loader" id="loader">Loading industry news...</div>
+  <div class="error" id="error" style="display:none;"></div>
+  <div class="grid" id="grid" style="display:none;"></div>
+</section>
+
+<!-- Add these styles to your main stylesheet or inside a <style> tag in your <head> -->
+<style>
+  .news { max-width: 980px; margin: 40px auto; padding: 0 20px; }
+  .news__header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+  .news__header h2 { margin: 0; font-size: 1.6rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .card { background: #1c2541; border-radius: 10px; padding: 14px; color: #eaeaea; }
+  .title a { color: #eaeaea; text-decoration: none; }
+  .title a:hover { color: #3aafa9; text-decoration: underline; }
+  .filters { margin-bottom: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .filters button { border: 1px solid #9fb3c8; border-radius: 20px; padding: 6px 10px; background: transparent; color: #eaeaea; cursor: pointer; }
+  .filters button.active { border-color: #3aafa9; color: #3aafa9; }
+</style>
+
+<!-- Add this script just before the closing </body> tag -->
+<script>
+  const API_URL = "/api/hvac-news"; // backend endpoint refreshed monthly
+  const SOURCES = [
+    { key: "engineers-australia", label: "Engineers Australia" },
+    { key: "abcb", label: "ABCB (NCC)" },
+    { key: "airah", label: "AIRAH" },
+    { key: "gbca", label: "GBCA" },
+    { key: "standards-australia", label: "Standards Australia" },
+  ];
+  const state = { items: [], filter: "all" };
+
+  function renderFilters() {
+    const el = document.getElementById("filters");
+    el.innerHTML = "";
+    const allBtn = document.createElement("button");
+    allBtn.textContent = "All";
+    allBtn.className = state.filter === "all" ? "active" : "";
+    allBtn.onclick = () => { state.filter = "all"; renderGrid(); renderFilters(); };
+    el.appendChild(allBtn);
+    for (const s of SOURCES) {
+      const btn = document.createElement("button");
+      btn.textContent = s.label;
+      btn.className = state.filter === s.key ? "active" : "";
+      btn.onclick = () => { state.filter = s.key; renderGrid(); renderFilters(); };
+      el.appendChild(btn);
+    }
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("grid");
+    const filtered = state.filter === "all" ? state.items : state.items.filter(i => i.sourceKey === state.filter);
+    grid.innerHTML = "";
+    for (const item of filtered) {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="source">${item.source}</div>
+        <h3 class="title"><a href="${item.url}" target="_blank">${item.title}</a></h3>
+        <div class="meta">${item.date ? new Date(item.date).toLocaleDateString() : ""}</div>
+      `;
+      grid.appendChild(card);
+    }
+    grid.style.display = "grid";
+  }
+
+  async function load() {
+    const loader = document.getElementById("loader");
+    const error = document.getElementById("error");
+    const updated = document.getElementById("updated");
+    try {
+      loader.style.display = "block";
+      error.style.display = "none";
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Failed to fetch news");
+      const data = await res.json();
+      state.items = (data.items || []).sort((a,b) => (new Date(b.date||0)) - (new Date(a.date||0)));
+      renderFilters();
+      renderGrid();
+      updated.textContent = "Updated " + new Date().toLocaleString();
+    } catch (e) {
+      error.textContent = "Could not load news right now.";
+      error.style.display = "block";
+    } finally {
+      loader.style.display = "none";
+    }
+  }
+
+  load();
+  setInterval(load, 30 * 24 * 60 * 60 * 1000); // refresh every ~30 days
+</script>
+
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Example static data - replace with your actual monthly refreshed data source
+const hvacNewsData = {
+  items: [
+    {
+      sourceKey: "engineers-australia",
+      source: "Engineers Australia",
+      title: "New HVAC Energy Efficiency Standards Released",
+      url: "https://engineersaustralia.org.au/news/hvac-energy-standards",
+      date: "2024-04-01"
+    },
+    {
+      sourceKey: "abcb",
+      source: "ABCB (NCC)",
+      title: "Updates to National Construction Code for HVAC Systems",
+      url: "https://abcb.gov.au/news/ncc-hvac-updates",
+      date: "2024-03-15"
+    },
+    // Add more news items here...
+  ]
+};
+
+// Endpoint to serve HVAC news JSON
+app.get('/api/hvac-news', (req, res) => {
+  res.json(hvacNewsData);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`HVAC news API server running at http://localhost:${port}`);
+});
+
+        </div>
+
+</section>
     <!-- Footer (Darker Grey) -->
     <footer class="bg-gray-700 text-white py-8">
         <div class="container mx-auto px-4 text-center">
@@ -878,7 +716,7 @@
                 <a href="#services" class="hover-text-saffron">Our Services</a>
                 <a href="#projects" class="hover-text-saffron">Projects</a>
                 <a href="#expertise" class="hover-text-saffron">Our People & Expertise</a>
-                <a href="#news" class="hover-text-saffron">Industry News</a>
+                <a href="#hvac-news" class="text-gray-600 nav-link">Industry News</a>
                 <a href="#contact" class="hover-text-saffron">Contact</a>
             </div>
             <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
@@ -888,5 +726,181 @@
         </div>
     </footer>
 
+    <script>
+        // NOTE: In a production environment, this data structure should be fetched 
+        // from a server-side API (e.g., Node.js, Python backend) that automatically 
+        // scrapes/updates news monthly from the requested sources (ABCB, AIRAH, etc.).
+        
+        // --- PLACEHOLDER DATA (Simulates a real API response) ---
+        const hvacNewsData = {
+            // This date simulates the last time your server fetched new data.
+            lastUpdated: "2025-12-05T10:00:00Z", 
+            news: [
+                {
+                    sourceKey: "standards",
+                    source: "Australian Standards",
+                    title: "Major Revisions to AS 1668.1: The 2024 Update is Here",
+                    summary: "AS 1668.1: The use of ventilation and air conditioning in buildings – Fire and smoke control has been revised, introducing new requirements for fan motor protection, control system redundancy, and smoke exhaust system commissioning.",
+                    url: "https://www.standards.org.au/news/as1668-2024-update",
+                    date: "2025-11-28", 
+                    tags: ["AS1668", "Fire Control", "Ventilation"]
+                },
+                {
+                    sourceKey: "abcb",
+                    source: "ABCB (NCC)",
+                    title: "NCC 2025 Consultation: Focus on HVAC Energy Efficiency and Volume One Changes",
+                    summary: "The Australian Building Codes Board (ABCB) has opened consultation for changes planned for NCC 2025, including potential increases to Section J requirements (J1V3) and a push towards mandatory embodied carbon reporting for large commercial projects.",
+                    url: "https://abcb.gov.au/consultation/ncc-2025-hvac",
+                    date: "2025-10-15",
+                    tags: ["NCC", "Section J", "Energy Efficiency"]
+                },
+                {
+                    sourceKey: "airah",
+                    source: "AIRAH",
+                    title: "New Guidelines for Indoor Air Quality (IAQ) in Schools and Offices",
+                    summary: "AIRAH has released a position paper advocating for stricter minimum fresh air rates, especially post-pandemic, which may influence future revisions of AS 1668.2 (Ventilation and air-conditioning in buildings).",
+                    url: "https://www.airah.org.au/resources/iaq-guidelines",
+                    date: "2025-09-01",
+                    tags: ["AIRAH", "IAQ", "Ventilation"]
+                },
+                {
+                    sourceKey: "engineers",
+                    source: "Engineers Australia",
+                    title: "Professional Engineer Registration Mandatory in More States: Impact on HVAC Certification",
+                    summary: "Engineers Australia confirms that the Professional Engineer Registration scheme is expanding beyond NSW and VIC, meaning more rigorous compliance pathways for HVAC Design Practitioners across the country.",
+                    url: "https://www.engineersaustralia.org.au/news/registration-update",
+                    date: "2025-08-20",
+                    tags: ["Registration", "Compliance", "Regulation"]
+                },
+                {
+                    sourceKey: "green",
+                    source: "GBCA",
+                    title: "Green Star Updates: Incentives for Low-GWP Refrigerants in HVAC",
+                    summary: "The Green Building Council of Australia (GBCA) has updated its Green Star rating tools to provide additional credits for projects that specify low Global Warming Potential (GWP) refrigerants, pushing the industry toward more sustainable plant options.",
+                    url: "https://new.gbca.org.au/news/low-gwp-hvac-incentives",
+                    date: "2025-07-10",
+                    tags: ["Sustainability", "Refrigerants", "Green Star"]
+                }
+            ].sort((a, b) => new Date(b.date) - new Date(a.date)) // Sort by newest first
+        };
+
+        // --- Core News Logic ---
+
+        function getSourceLabel(key) {
+            switch (key) {
+                case 'standards': return 'Australian Standards';
+                case 'abcb': return 'ABCB (NCC)';
+                case 'airah': return 'AIRAH';
+                case 'engineers': return 'Engineers Australia';
+                case 'green': return 'GBCA (Green Star)';
+                case 'all': return 'All Updates';
+                default: return 'Industry Update';
+            }
+        }
+
+        function renderNews(newsItems) {
+            const grid = document.getElementById("news-grid");
+            const noResults = document.getElementById("no-results");
+            grid.innerHTML = "";
+            
+            if (newsItems.length === 0) {
+                noResults.style.display = 'block';
+                grid.style.display = 'none';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            newsItems.forEach(item => {
+                const card = document.createElement("article");
+                // Uses existing .service-card styles for hover effect
+                card.className = "p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between bg-white service-card";
+                
+                // Format the date
+                const dateStr = item.date ? new Date(item.date).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' }) : "No Date";
+
+                // Create tags HTML
+                const tagsHtml = (item.tags || [])
+                    .map(tag => `<span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full mr-2 mb-1">${tag}</span>`)
+                    .join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="text-saffron text-sm font-bold uppercase mb-2">${item.source}</div>
+                        <h3 class="text-xl font-extrabold text-gray-900 mb-3 leading-snug">
+                            <a href="${item.url}" target="_blank" class="hover:text-saffron transition-colors duration-200">${item.title}</a>
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-base">${item.summary}</p>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 mb-3">Published: ${dateStr}</div>
+                        <div class="flex flex-wrap">${tagsHtml}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            grid.style.display = "grid";
+        }
+
+        function setupFilters() {
+            const filtersContainer = document.getElementById("news-filters");
+            // Get unique source keys, including 'all'
+            const allSources = ['all', ...new Set(hvacNewsData.news.map(item => item.sourceKey))];
+            
+            // Generate and attach filter buttons
+            allSources.forEach(sourceKey => {
+                const button = document.createElement('button');
+                button.textContent = getSourceLabel(sourceKey);
+                button.dataset.filter = sourceKey;
+                button.className = 'filter-btn';
+                if (sourceKey === 'all') {
+                    button.classList.add('active', 'bg-saffron', 'text-white');
+                }
+                filtersContainer.appendChild(button);
+            });
+
+            filtersContainer.addEventListener('click', (event) => {
+                const target = event.target;
+                if (target.matches('.filter-btn')) {
+                    const filterValue = target.dataset.filter;
+                    
+                    // Update active button state
+                    filtersContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.remove('active', 'bg-saffron', 'text-white');
+                    });
+                    target.classList.add('active', 'bg-saffron', 'text-white');
+
+                    filterNews(filterValue);
+                }
+            });
+        }
+
+        function filterNews(filterKey) {
+            const filtered = filterKey === 'all' 
+                ? hvacNewsData.news 
+                : hvacNewsData.news.filter(item => item.sourceKey === filterKey);
+            renderNews(filtered);
+        }
+
+        function loadNews() {
+            const loader = document.getElementById("news-loader");
+            const updatedDisplay = document.getElementById("news-updated");
+            
+            // Hide loader
+            loader.style.display = 'none';
+
+            // Display last updated time
+            const updateDate = new Date(hvacNewsData.lastUpdated);
+            updatedDisplay.textContent = `(Data fetched: ${updateDate.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })})`;
+            
+            // Initial render (shows all)
+            setupFilters();
+            renderNews(hvacNewsData.news);
+        }
+
+        // Call loadNews when the page is ready
+        document.addEventListener('DOMContentLoaded', loadNews);
+    </script>
+    
 </body>
 </html>
