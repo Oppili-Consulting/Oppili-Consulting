@@ -514,8 +514,14 @@
             <p class="text-lg mb-8">
                 Contact our Senior Mechanical engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
             </p>
+            
+            <!-- !!! IMPORTANT ACTIVATION WARNING !!! -->
+            <div class="bg-yellow-100 text-gray-800 p-4 rounded-xl mb-6 shadow-lg border-l-4 border-yellow-500 font-semibold">
+                <p class="font-bold text-red-600 mb-1">🛠️ Form Activation Required!</p>
+                <p class="text-sm">If you are not receiving emails, please check the inbox for <strong class="underline">venkat.n@oppiliengg.com.au</strong> for a "Confirm your email address" message sent by FormSubmit. You must click the activation link in that email after the first test submission for the form to work permanently.</p>
+            </div>
 
-            <!-- Direct Contact Info Block (New) -->
+            <!-- Direct Contact Info Block -->
             <div class="bg-gray-700 p-6 rounded-xl shadow-2xl mb-10 border-l-4 border-saffron">
                 <h3 class="text-2xl font-bold mb-4">Direct Contact</h3>
                 <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-lg">
@@ -535,8 +541,8 @@
             <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
                 <!-- Honey pot to catch spam -->
                 <input type="text" name="_honey" style="display:none">
-                <!-- Redirect after success (optional) -->
-                <input type="hidden" name="_next" value="https://oppiliengg.com.au/thank-you.html">
+                <!-- Use a confirmation message instead of redirecting -->
+                <input type="hidden" name="_confirmation" value="Your enquiry has been received. We will be in touch shortly.">
 
                 <div>
                     <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
@@ -571,7 +577,7 @@
             </form>
         </div>
     </section>
-
+    
     <!-- Footer (Darker Grey) -->
     <footer class="bg-gray-700 text-white py-8">
         <div class="container mx-auto px-4 text-center">
