@@ -543,6 +543,8 @@
                 <input type="text" name="_honey" style="display:none">
                 <!-- Use a confirmation message instead of redirecting -->
                 <input type="hidden" name="_confirmation" value="Your enquiry has been received. We will be in touch shortly.">
+                <!-- Disable Captcha (optional but useful for testing) -->
+                <input type="hidden" name="_captcha" value="false">
 
                 <div>
                     <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
@@ -577,62 +579,6 @@
             </form>
         </div>
     </section>
-    
-    <!-- Footer (Darker Grey) -->
-    <footer class="bg-gray-700 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-4 space-x-6 text-sm">
-                <a href="#services" class="hover-text-saffron">Our Services</a>
-                <a href="#projects" class="hover-text-saffron">Projects</a>
-                <a href="#expertise" class="hover-text-saffron">Our People & Expertise</a>
-                <a href="#contact" class="hover-text-saffron">Contact</a>
-            </div>
-            <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
-            <p class="text-xs text-gray-400">
-                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
-            </p>
-        </div>
-    </footer>
 
-        <!-- JavaScript for Form Submission Handling -->
-    <script>
-        // Function to handle form submission
-        function handleFormSubmission(event) {
-            event.preventDefault(); // Stop the default form submission (page reload)
-
-            const form = document.getElementById('contact-form');
-            const statusMessage = document.getElementById('form-status-message');
-            const submitButton = form.querySelector('button[type="submit"]');
-
-            // 1. Show loading state
-            statusMessage.textContent = 'Submitting enquiry...';
-            statusMessage.className = 'p-4 rounded-xl mb-6 font-semibold text-gray-900 bg-yellow-300 block text-center';
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Processing...';
-
-            // 2. Gather form data (for potential real use)
-            const formData = {
-                name: form.querySelector('[name="full_name"]').value,
-                email: form.querySelector('[name="email"]').value,
-                phone: form.querySelector('[name="phone"]').value,
-                project_description: form.querySelector('[name="project_description"]').value
-            };
-
-            // 3. Simulate API call (In a real application, replace this setTimeout with a 'fetch' call to your server)
-            setTimeout(() => {
-                // Success simulation
-                console.log("Form Data Sent:", formData);
-
-                statusMessage.textContent = 'Thank you! Your enquiry has been successfully submitted. We will be in touch shortly.';
-                statusMessage.className = 'p-4 rounded-xl mb-6 font-semibold text-white bg-green-600 block text-center';
-
-                // Reset form and button state
-                form.reset();
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Submit Enquiry';
-
-            }, 2000); // 2 second delay to simulate network latency
-        }
-    </script>
 </body>
 </html>
