@@ -530,10 +530,11 @@
                 </div>
             </div>
             
-            <!-- Functional Contact Form (using FormSubmit) -->
-            <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
-            <div id="form-message-container" class="mb-4"></div>
-            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
+            <!-- Functional Contact Form (using FormSubmit - Simplified) -->
+            <!-- The form action is set directly to the FormSubmit URL, relying on native browser submission. -->
+            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" class="space-y-6">
+                <!-- IMPORTANT: FormSubmit requires the hidden _VALIDATE field for better reliability and anti-spam -->
+                <input type="hidden" name="_VALIDATE" value="true">
                 <!-- Honey pot to catch spam -->
                 <input type="text" name="_honey" style="display:none">
                 <!-- Redirect after success (optional) -->
@@ -570,6 +571,7 @@
                     </button>
                 </div>
             </form>
+            <!-- Removed the custom JavaScript message box element since we are now relying on native FormSubmit redirection/messages -->
         </div>
     </section>
 
