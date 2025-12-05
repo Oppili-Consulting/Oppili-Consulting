@@ -184,7 +184,7 @@
             
             <!-- Call to Action -->
             <a href="#services" class="inline-block bg-saffron text-white font-bold px-10 py-4 rounded-xl shadow-2xl text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 hover:text-gray-800">
-                Explore HVAC Solutions
+                Explore Compliance Solutions
             </a>
         </div>
     </section>
@@ -505,59 +505,67 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 md:py-24 bg-gray-800 text-white">
+    <!-- Contact Section (Dark Grey background, Accent buttons) -->
+    <section id="contact" class="py-16 md:py-24 bg-gray-600 text-white">
         <div class="container mx-auto px-4 max-w-3xl">
-            <h2 class="text-4xl section-header mb-12 text-white after:bg-saffron">
-                Contact Us for a Consultation
+            <h2 class="section-header text-4xl font-extrabold mb-8 text-white after:bg-saffron">
+                Discuss Your Next HVAC Project
             </h2>
-            
-            <p class="text-lg mb-6 p-4 bg-gray-700 rounded-xl border-l-4 border-saffron">
-                Use the form below or contact us directly to discuss your project requirements.
+            <p class="text-lg mb-8">
+                Contact our Senior Mechanical engineer directly to discuss your project's mechanical HVAC design requirements and ensure a smooth, compliant path to construction.
             </p>
 
+            <!-- Direct Contact Info Block (New) -->
             <div class="bg-gray-700 p-6 rounded-xl shadow-2xl mb-10 border-l-4 border-saffron">
-                <h3 class="text-2xl font-bold mb-4">Direct Contact Information</h3>
+                <h3 class="text-2xl font-bold mb-4">Direct Contact</h3>
                 <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-lg">
                     <div class="flex items-center">
-                        <!-- Phone Icon -->
                         <svg class="w-6 h-6 mr-3 text-saffron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        <a href="tel:+61422985601" class="hover-text-saffron transition duration-300 font-semibold">0422 985 601</a>
+                        <a href="tel:+61422985601" class="hover-text-saffron transition duration-150 font-semibold">0422 985 601</a>
                     </div>
                     <div class="flex items-center">
-                        <!-- Email Icon -->
                         <svg class="w-6 h-6 mr-3 text-saffron" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"></path></svg>
-                        <a href="mailto:venkat.n@oppiliengg.com.au" class="hover-text-saffron transition duration-300 font-semibold">venkat.n@oppiliengg.com.au</a>
+                        <a href="mailto:venkat.n@oppiliengg.com.au" class="hover-text-saffron transition duration-150 font-semibold">venkat.n@oppiliengg.com.au</a>
                     </div>
                 </div>
             </div>
             
-            <!-- Contact Form: ACTION attribute set to the correct email -->
-            <form action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" id="enquiryForm" class="mt-8 space-y-6 bg-white p-6 md:p-10 rounded-xl shadow-2xl text-gray-800">
-                
-                <!-- Hidden input for successful redirect (must be to a working URL) -->
-                <input type="hidden" name="_next" value="https://oppiliengg.com.au/thanks"> 
-                <input type="hidden" name="_subject" value="New Website Enquiry from Oppili Engineering Site">
+            <!-- Functional Contact Form (using FormSubmit) -->
+            <!-- IMPORTANT: REPLACE 'YOUR_EMAIL_ADDRESS_HERE' with your actual email to receive submissions -->
+            <div id="form-message-container" class="mb-4"></div>
+            <form action="https://formsubmit.co/YOUR_EMAIL_ADDRESS_HERE" method="POST" onsubmit="handleSubmit(event)" class="space-y-6">
+                <!-- Honey pot to catch spam -->
+                <input type="text" name="_honey" style="display:none">
+                <!-- Redirect after success (optional) -->
+                <input type="hidden" name="_next" value="https://oppiliengg.com.au/thank-you.html">
 
-                <div class="grid sm:grid-cols-2 gap-6">
-                    <input type="text" name="Name" id="name" placeholder="Your Name" required
-                        class="p-3 border border-gray-300 rounded-lg focus:ring-saffron focus:border-saffron focus:ring-2 transition duration-300">
-                    <input type="email" name="Email" id="email" placeholder="Your Email" required
-                        class="p-3 border border-gray-300 rounded-lg focus:ring-saffron focus:border-saffron focus:ring-2 transition duration-300">
+                <div>
+                    <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="Project Lead / Architect">
                 </div>
-                <input type="tel" name="Phone" placeholder="Phone Number (Optional)"
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-saffron focus:border-saffron focus:ring-2 transition duration-300">
-                <input type="text" name="Company/Client" id="company" placeholder="Company/Client Name" required
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-saffron focus:border-saffron focus:ring-2 transition duration-300">
-                <div class="w-full">
-                    <textarea name="Project_Details" id="details" rows="4" required
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-saffron focus:border-saffron focus:ring-2 transition duration-300"
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-1">Work Email</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="project@firmname.com.au">
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium mb-1">Project Subject (e.g., Section J Audit)</label>
+                    <input type="text" id="subject" name="_subject" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
+                        placeholder="New Commercial Tower HVAC Design">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium mb-1">Project Details</label>
+                    <textarea id="message" name="message" rows="4" required
+                        class="w-full px-4 py-3 rounded-lg border-gray-300 text-gray-800 focus:ring-saffron focus:border-saffron shadow-sm transition duration-150"
                         placeholder="Briefly describe the project location, building classification, required mechanical/HVAC services, and key compliance challenges..."></textarea>
                 </div>
-                
                 <div class="text-center md:text-left">
-                    <button type="submit" id="submitButton"
-                        class="w-full md:w-auto bg-saffron text-white font-bold px-10 py-4 rounded-xl shadow-xl hover:bg-gray-700 transition duration-300 transform hover:scale-105">
+                    <button type="submit"
+                        class="w-full md:w-auto bg-white text-saffron font-bold px-10 py-4 rounded-xl shadow-xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
                         Submit Enquiry
                     </button>
                 </div>
@@ -565,6 +573,141 @@
         </div>
     </section>
 
+<section class="news" id="hvac-news">
+  <div class="news__header">
+    <h2>Latest HVAC Engineering Standards & Codes</h2>
+    <div class="updated" id="updated"></div>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="loader" id="loader">Loading industry news...</div>
+  <div class="error" id="error" style="display:none;"></div>
+  <div class="grid" id="grid" style="display:none;"></div>
+</section>
+
+<!-- Add these styles to your main stylesheet or inside a <style> tag in your <head> -->
+<style>
+  .news { max-width: 980px; margin: 40px auto; padding: 0 20px; }
+  .news__header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+  .news__header h2 { margin: 0; font-size: 1.6rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .card { background: #1c2541; border-radius: 10px; padding: 14px; color: #eaeaea; }
+  .title a { color: #eaeaea; text-decoration: none; }
+  .title a:hover { color: #3aafa9; text-decoration: underline; }
+  .filters { margin-bottom: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .filters button { border: 1px solid #9fb3c8; border-radius: 20px; padding: 6px 10px; background: transparent; color: #eaeaea; cursor: pointer; }
+  .filters button.active { border-color: #3aafa9; color: #3aafa9; }
+</style>
+
+<!-- Add this script just before the closing </body> tag -->
+<script>
+  const API_URL = "/api/hvac-news"; // backend endpoint refreshed monthly
+  const SOURCES = [
+    { key: "engineers-australia", label: "Engineers Australia" },
+    { key: "abcb", label: "ABCB (NCC)" },
+    { key: "airah", label: "AIRAH" },
+    { key: "gbca", label: "GBCA" },
+    { key: "standards-australia", label: "Standards Australia" },
+  ];
+  const state = { items: [], filter: "all" };
+
+  function renderFilters() {
+    const el = document.getElementById("filters");
+    el.innerHTML = "";
+    const allBtn = document.createElement("button");
+    allBtn.textContent = "All";
+    allBtn.className = state.filter === "all" ? "active" : "";
+    allBtn.onclick = () => { state.filter = "all"; renderGrid(); renderFilters(); };
+    el.appendChild(allBtn);
+    for (const s of SOURCES) {
+      const btn = document.createElement("button");
+      btn.textContent = s.label;
+      btn.className = state.filter === s.key ? "active" : "";
+      btn.onclick = () => { state.filter = s.key; renderGrid(); renderFilters(); };
+      el.appendChild(btn);
+    }
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("grid");
+    const filtered = state.filter === "all" ? state.items : state.items.filter(i => i.sourceKey === state.filter);
+    grid.innerHTML = "";
+    for (const item of filtered) {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="source">${item.source}</div>
+        <h3 class="title"><a href="${item.url}" target="_blank">${item.title}</a></h3>
+        <div class="meta">${item.date ? new Date(item.date).toLocaleDateString() : ""}</div>
+      `;
+      grid.appendChild(card);
+    }
+    grid.style.display = "grid";
+  }
+
+  async function load() {
+    const loader = document.getElementById("loader");
+    const error = document.getElementById("error");
+    const updated = document.getElementById("updated");
+    try {
+      loader.style.display = "block";
+      error.style.display = "none";
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Failed to fetch news");
+      const data = await res.json();
+      state.items = (data.items || []).sort((a,b) => (new Date(b.date||0)) - (new Date(a.date||0)));
+      renderFilters();
+      renderGrid();
+      updated.textContent = "Updated " + new Date().toLocaleString();
+    } catch (e) {
+      error.textContent = "Could not load news right now.";
+      error.style.display = "block";
+    } finally {
+      loader.style.display = "none";
+    }
+  }
+
+  load();
+  setInterval(load, 30 * 24 * 60 * 60 * 1000); // refresh every ~30 days
+</script>
+
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Example static data - replace with your actual monthly refreshed data source
+const hvacNewsData = {
+  items: [
+    {
+      sourceKey: "engineers-australia",
+      source: "Engineers Australia",
+      title: "New HVAC Energy Efficiency Standards Released",
+      url: "https://engineersaustralia.org.au/news/hvac-energy-standards",
+      date: "2024-04-01"
+    },
+    {
+      sourceKey: "abcb",
+      source: "ABCB (NCC)",
+      title: "Updates to National Construction Code for HVAC Systems",
+      url: "https://abcb.gov.au/news/ncc-hvac-updates",
+      date: "2024-03-15"
+    },
+    // Add more news items here...
+  ]
+};
+
+// Endpoint to serve HVAC news JSON
+app.get('/api/hvac-news', (req, res) => {
+  res.json(hvacNewsData);
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`HVAC news API server running at http://localhost:${port}`);
+});
+
+        </div>
+
+</section>
     <!-- Footer (Darker Grey) -->
     <footer class="bg-gray-700 text-white py-8">
         <div class="container mx-auto px-4 text-center">
@@ -576,69 +719,10 @@
             </div>
             <p class="text-sm mb-1">&copy; 2025 Oppili Consulting. All rights reserved. ABN-57 334 360 754.</p>
             <p class="text-xs text-gray-400">
-                Specializing in NCC compliance and advanced HVAC design for Australian commercial, health, and data centre sectors.
+                Specializing in NCC, BCA, Section J, and HVAC Mechanical Systems Design across Australia.
             </p>
         </div>
     </footer>
 
-    <!-- JavaScript for Client-Side Validation and Custom Message Box -->
-    <script>
-        const form = document.getElementById('enquiryForm');
-        const messageBox = document.getElementById('messageBox');
-
-        function showMessage(message, type = 'warning') {
-            messageBox.textContent = message;
-            messageBox.className = 'message-box show'; // Reset classes
-            
-            // Set color based on type
-            if (type === 'error') {
-                messageBox.style.backgroundColor = '#dc3545'; // Red
-                messageBox.style.color = 'white';
-            } else if (type === 'success') {
-                messageBox.style.backgroundColor = '#28a745'; // Green
-                messageBox.style.color = 'white';
-            } else {
-                messageBox.style.backgroundColor = '#ffc107'; // Yellow
-                messageBox.style.color = '#343a40';
-            }
-
-            setTimeout(() => {
-                messageBox.classList.remove('show');
-            }, 5000); // Hide after 5 seconds
-        }
-
-        // Simple client-side validation before FormSubmit takes over
-        form.addEventListener('submit', function(e) {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const company = document.getElementById('company').value.trim();
-            const details = document.getElementById('details').value.trim();
-
-            if (!name || !email || !company || !details) {
-                e.preventDefault(); // Stop the form from submitting
-                showMessage('Please fill in all required fields (Name, Email, Company/Client Name, and Project Details).', 'error');
-                return;
-            }
-
-            // Simple email format check
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                e.preventDefault();
-                showMessage('Please enter a valid email address.', 'error');
-                return;
-            }
-
-            // If everything passes, the form will submit to FormSubmit.
-            // We can show a temporary success message before the redirect
-            showMessage('Form submitted! Checking FormSubmit service for email delivery verification. Please wait for redirect...', 'success');
-        });
-        
-        // Ensure the initial FormSubmit action is correct
-        console.log("Form action is set to:", form.action);
-        if (form.action.includes("venkat.n@oppiliengg.com.au")) {
-             console.log("Form action email confirmed correct.");
-        }
-
-    </script>
 </body>
 </html>
