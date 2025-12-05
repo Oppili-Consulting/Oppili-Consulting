@@ -595,8 +595,8 @@
             </p>
         </div>
     </footer>
-
-        <!-- Firebase Script Initialization -->
+    
+    <!-- Firebase Script Initialization -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -617,8 +617,8 @@
 
             if (!db || !auth.currentUser) {
                 console.error("Database not initialized or user not authenticated.");
-                statusMessage.textContent = "Error: Database not ready. Please try again in a moment.";
-                statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                statusMessage.textContent = "Error: Database not ready. Please wait a moment and refresh, or use the direct contact details above.";
+                statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100', 'text-yellow-800');
                 statusMessage.classList.add('bg-red-100', 'text-red-800');
                 return;
             }
@@ -638,6 +638,7 @@
                 clientUserId: userId // To link the anonymous user session
             };
             
+            // Public collection path: artifacts/{appId}/public/data/{your_collection_name}
             const contactCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'contact_submissions');
 
             try {
@@ -652,7 +653,7 @@
                 console.error("Error adding document: ", e);
                 statusMessage.classList.remove('bg-yellow-100', 'text-yellow-800');
                 statusMessage.classList.add('bg-red-100', 'text-red-800');
-                statusMessage.textContent = `Error: Could not save message. Please try the direct email address.`;
+                statusMessage.textContent = `Error: Could not save message. Please use the direct email or phone number above.`;
             } finally {
                 submitButton.disabled = false;
             }
@@ -660,13 +661,15 @@
 
         async function initializeFirebase() {
             try {
+                // Check if the critical configuration needed to initialize Firebase is present
                 if (!firebaseConfig || !firebaseConfig.apiKey) {
-                    console.error("Firebase config is missing or invalid.");
+                    console.error("Firebase config is missing or invalid. Waiting for environment load.");
                     document.getElementById('firebase-status').innerHTML = `
-                        <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg">
-                            Database Error: Configuration missing. Submissions will not be saved.
+                        <div class="mt-4 p-3 bg-yellow-100 text-yellow-800 rounded-lg">
+                            ⚠️ Database Status: Credentials are still loading. Submissions will be saved securely once ready. Please use direct contact details if urgent.
                         </div>`;
-                    return;
+                    // Do not attempt to initialize if config is missing, wait for a potential retry/refresh
+                    return; 
                 }
                 
                 // Initialize services
@@ -676,11 +679,12 @@
                 
                 // Set persistence and enable debug logging
                 await setPersistence(auth, browserSessionPersistence);
-                setLogLevel('error'); // Set error to avoid overwhelming console with debug messages during normal use
+                setLogLevel('error'); 
 
                 // Sign in using the custom token or anonymously
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
                 } else {
                     await signInAnonymously(auth);
                 }
@@ -696,7 +700,7 @@
                 console.error("Firebase initialization or sign-in failed:", e);
                 document.getElementById('firebase-status').innerHTML = `
                     <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg">
-                        ❌ Database Error: Could not establish connection. Please contact directly.
+                        ❌ Database Error: Connection failed. Please use the direct email or phone number above.
                     </div>`;
             }
         }
@@ -704,6 +708,6 @@
         // Start initialization when the window loads
         window.onload = initializeFirebase;
     </script>
-    
+
 </body>
 </html>
