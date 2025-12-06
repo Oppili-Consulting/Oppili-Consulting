@@ -540,12 +540,16 @@
                 </div>
             </div>
 
+            <!-- Messages will be shown by FormSubmit redirect -->
+            <div id="success-message" class="success-message"></div>
+            <div id="error-message" class="error-message"></div>
+            
             <form id="contact-form" action="https://formsubmit.co/venkat.n@oppiliengg.com.au" method="POST" class="space-y-6 bg-white p-6 rounded-xl shadow-2xl text-gray-800">
                 <h3 class="text-2xl font-bold mb-4">Submit Your Project Details</h3>
                 
                 <!-- FormSubmit required fields -->
                 <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_next" value="https://oppiliengg.com.au/index.html?success=true">
+                <input type="hidden" name="_next" value="https://oppiliengg.com.au/thank-you.html">
                 <input type="hidden" name="_subject" value="New HVAC Project Enquiry - Oppili Engineering Website">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
